@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Switch - Stop Overpaying on Energy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        .hero {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #111;
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            color: #6366f1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .waitlist-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto 3rem;
+        }
+
+        .waitlist-form h3 {
+            margin-bottom: 1rem;
+            color: #111;
+        }
+
+        .waitlist-form p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        .trust-line {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .what-you-get {
+            max-width: 1000px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .what-you-get h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #111;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #111;
+        }
+
+        .benefit p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .newsletter-preview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+            margin: 5rem 0;
+        }
+
+        .newsletter-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .newsletter-preview h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .topic {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .topic h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .topic p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .community-stats {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #6366f1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .final-cta {
+            background: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #111;
+        }
+
+        .final-cta p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: #111;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .what-you-get h2,
+            .newsletter-preview h2 {
+                font-size: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">⚡ BillSmart</div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="badge">🚀 Currently Building</div>
+        <h1>Tired of Confusing <span class="highlight">Energy Bills?</span></h1>
+        <p>Join our community of people who are done with overpaying. Get weekly insights into what you're really paying for, how the price cap works, and when you're being ripped off.</p>
+
+        <div class="waitlist-form">
+            <h3>Join the Waitlist</h3>
+            <p>Be the first to know when we launch + get exclusive energy-saving insights every week</p>
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <input type="email" placeholder="Your email address" required>
+                </div>
+                <button type="submit" class="submit-btn">Get Weekly Insights</button>
+            </form>
+            <p class="trust-line">🔒 We respect your inbox. Unsubscribe anytime.</p>
+        </div>
+
+        <p style="color: #999; font-size: 0.9rem;">Join <strong style="color: #6366f1;">500+</strong> people on the waitlist</p>
+    </section>
+
+    <section class="what-you-get">
+        <h2>What You'll Get Every Week</h2>
+        <div class="benefits">
+            <div class="benefit">
+                <div class="benefit-icon">📊</div>
+                <h3>Bill Breakdown</h3>
+                <p>Plain English explanations of what you're actually paying for - no jargon, no confusion</p>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">💰</div>
+                <h3>Overpaying Alerts</h3>
+                <p>Find out if you're being charged more than you should be based on the latest price cap</p>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">📈</div>
+                <h3>Industry Updates</h3>
+                <p>What's happening in UK energy - new tariffs, regulatory changes, and market trends</p>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">🎯</div>
+                <h3>Actionable Tips</h3>
+                <p>Simple steps you can take this week to reduce your energy costs</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-preview">
+        <div class="newsletter-content">
+            <h2>This Week's Newsletter Topics</h2>
+            <p>Here's a taste of what our community learns about each week</p>
+            
+            <div class="newsletter-topics">
+                <div class="topic">
+                    <h4>🔍 Price Cap Components</h4>
+                    <p>Breaking down the 5 main parts of your energy bill and why they change</p>
+                </div>
+                <div class="topic">
+                    <h4>⚠️ Standing Charges</h4>
+                    <p>Why you pay even when you use zero energy - and if it's fair</p>
+                </div>
+                <div class="topic">
+                    <h4>💡 Smart Meter Truth</h4>
+                    <p>Do they actually save you money or just help suppliers?</p>
+                </div>
+                <div class="topic">
+                    <h4>🎯 Best Tariff Strategy</h4>
+                    <p>Fixed vs variable - which is right for you right now</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community-stats">
+        <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Waitlist Members</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">£300+</div>
+            <div class="stat-label">Avg. Overpayment Found</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">Weekly</div>
+            <div class="stat-label">Industry Insights</div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <h2>Something Amazing is Coming</h2>
+        <p>We're building a tool that will make energy switching automatic and painless.<br>Join the waitlist to be first in line when we launch.</p>
+        <button class="submit-btn" style="max-width: 300px; margin: 0 auto;" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">Join the Waitlist</button>
+    </section>
+
+    <footer class="footer">
+        <p>💌 Weekly energy insights delivered to your inbox</p>
+        <p style="margin-top: 1rem; opacity: 0.7;">&copy; 2024 BillSmart. Making energy bills make sense.</p>
+    </footer>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            
+            // Show success message
+            const form = e.target.closest('.waitlist-form');
+            form.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+                    <h3 style="color: #6366f1; margin-bottom: 0.5rem;">You're on the list!</h3>
+                    <p style="color: #666;">Check your inbox - your first weekly insight is on its way to <strong>${email}</strong></p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
