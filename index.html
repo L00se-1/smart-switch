@@ -731,7 +731,7 @@
             <p>Here's what our community is learning about right now</p>
             
             <div class="newsletter-topics">
-                <div class="topic clickable" onclick="showArticle()">
+                <div class="topic clickable" onclick="window.open('article.html', '_blank')">
                     <h4>🔆 Warm Home Discount Expansion</h4>
                     <p>What's changing from winter 2025-26 and how it affects your bills - plus why competition is heating up</p>
                     <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">📅 25 Oct 2025</p>
@@ -837,16 +837,6 @@
                     <p style="color: #666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
                 </div>
             `;
-        }
-
-        function showArticle() {
-            document.getElementById('article').style.display = 'block';
-            document.getElementById('article').scrollIntoView({behavior: 'smooth'});
-        }
-
-        function hideArticle() {
-            document.getElementById('article').style.display = 'none';
-            document.querySelector('.hero').scrollIntoView({behavior: 'smooth'});
         }
     </script>
 </body>
