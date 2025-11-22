@@ -23,6 +23,7 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
     0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(99,102,241,0.6)); }
     50% { opacity: 1; filter: drop-shadow(0 0 40px rgba(236,72,153,0.9)); }
 }
+
 .symbol:nth-child(1){left:55%;top:14%}
 .symbol:nth-child(2){left:70%;top:10%}
 .symbol:nth-child(3){left:50%;top:65%}
@@ -46,31 +47,87 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 .form-group input {width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;} 
 .submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);margin-top:1rem;} 
 
-/* BENEFITS */
-.benefits-section {max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;} 
-.benefits-section h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;} 
-.benefits-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:3rem;} 
-.benefit {background:#12172f;padding:2rem;border-radius:20px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.4);} 
-.benefit-icon {font-size:2.5rem;margin-bottom:1rem;} 
-
 /* INSIGHTS */
-.insights {background:#0f1329;padding:6rem 2rem;text-align:center;} 
-.insights h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;} 
-.topics {max-width:1200px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;} 
-.topic {background:#11162e;padding:2rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:260px;display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;} 
-.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(0,0,0,0.5);} 
+.insights {background:#0f1329;padding:6rem 2rem;text-align:center;position:relative;overflow:hidden;} 
+
+/* Animated circuit lines */
+.insights::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #6366f1, transparent);
+    animation: scanline 3s linear infinite;
+}
+.insights::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ec4899, transparent);
+    animation: scanline 3s linear infinite reverse;
+}
+@keyframes scanline {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.insights h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;position:relative;z-index:2;} 
+.topics {max-width:1200px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem;} 
+.topic {background:#11162e;padding:2rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);height:260px;display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;position:relative;overflow:hidden;} 
+
+/* Glowing edge on hover */
+.topic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    padding: 2px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.topic:hover::before {
+    opacity: 1;
+}
+
+.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(99,102,241,0.4);} 
 .topic h3 {font-size:1.3rem;margin-bottom:.8rem;margin-top:0;} 
 .topic p {opacity:.85;line-height:1.5;font-size:1rem;margin:0;} 
 
 /* STATS */
-.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;} 
+.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;position:relative;} 
 .stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;} 
 
 /* CTA */
-.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;} 
-.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;} 
-.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;} 
-.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;} 
+.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;position:relative;overflow:hidden;} 
+
+/* Animated grid overlay */
+.final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridSlide 15s linear infinite;
+}
+@keyframes gridSlide {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;position:relative;z-index:2;} 
+.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;position:relative;z-index:2;} 
+.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;position:relative;z-index:2;} 
 .cta-btn:hover {transform:translateY(-3px);box-shadow:0 15px 50px rgba(236,72,153,0.5);}
 
 /* MOBILE RESPONSIVE */
@@ -88,10 +145,9 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
     .waitlist-form {padding:2rem;margin:2rem 1.5rem;}
     .waitlist-form h3 {font-size:1.6rem;}
     
-    .benefits-section h2, .insights h2, .final-cta h2 {font-size:2rem;}
+    .insights h2, .final-cta h2 {font-size:2rem;}
     .topics {grid-template-columns:1fr;gap:1.5rem;}
     .topic {height:auto;min-height:200px;}
-    .topic:last-child {grid-column:1;}
     
     .stats {grid-template-columns:1fr;gap:2rem;}
     .stat-number {font-size:2.5rem;}
@@ -105,7 +161,7 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
     .hero-text h1 {font-size:2rem;}
     .pilot-character {font-size:10rem;}
     .waitlist-form h3 {font-size:1.4rem;}
-    .benefits-section, .insights, .final-cta {padding:4rem 1rem;}
+    .insights, .final-cta {padding:4rem 1rem;}
     
     /* Responsive logo */
     .top-logo-wrapper {left:15px !important;gap:6px !important;}
@@ -152,7 +208,7 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 
 <section class="insights">
 <h2>Recent Insights</h2>
-<p style="opacity:.85;margin-top:.5rem;margin-bottom:3rem;font-size:1.2rem;">Here's what our community is learning about right now</p>
+<p style="opacity:.85;margin-top:.5rem;margin-bottom:3rem;font-size:1.2rem;position:relative;z-index:2;">Here's what our community is learning about right now</p>
 <div class="topics">
 
 <div class="topic" onclick="window.open('article.html','_blank')">
@@ -161,19 +217,10 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 <p style="margin-top:auto;font-size:.9rem;opacity:.7;">📅 25 Oct 2025</p>
 </div>
 
-<div class="topic">
-<h3>⚠️ Standing Charges</h3>
-<p>Why you pay even when you use zero energy – and if it's fair</p>
-</div>
-
-<div class="topic">
-<h3>💡 Smart Meter Truth</h3>
-<p>Do they actually save you money or just help suppliers?</p>
-</div>
-
-<div class="topic" style="grid-column:2/3;">
-<h3>🎯 Best Tariff Strategy</h3>
-<p>Fixed vs variable – which is right for you right now</p>
+<div class="topic" onclick="window.open('nuclear-rab.html','_blank')">
+<h3>⚛️ Nuclear RAB Charge</h3>
+<p>What's being added to bills from 2026 – and why you're paying for a nuclear plant before it's built</p>
+<p style="margin-top:auto;font-size:.9rem;opacity:.7;">📅 22 Nov 2025</p>
 </div>
 
 </div>
@@ -222,6 +269,3 @@ function handleSubmit(e) {
 
 </body>
 </html>
-
-
-
