@@ -71,6 +71,43 @@ body {
   z-index: 5;
 }
 
+/* Warm home themed icons on sides - spaced further from card */
+.article-inner::before {
+  content: '🏠';
+  position: absolute;
+  top: 15%;
+  left: -180px;
+  font-size: 5rem;
+  opacity: 0.85;
+  animation: floatWarm 8s ease-in-out infinite;
+}
+.article-inner::after {
+  content: '☀️';
+  position: absolute;
+  top: 45%;
+  right: -180px;
+  font-size: 5rem;
+  opacity: 0.85;
+  animation: floatWarm 10s ease-in-out infinite 3s;
+}
+
+/* Additional side icons */
+.article-card::after {
+  content: '♨️';
+  position: absolute;
+  bottom: 20%;
+  left: -190px;
+  font-size: 4.5rem;
+  opacity: 0.85;
+  animation: floatWarm 9s ease-in-out infinite 1.5s;
+  z-index: -2;
+}
+
+@keyframes floatWarm {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(5deg); }
+}
+
 /* BACK LINK */
 .back-home {
   display: inline-block;
@@ -96,14 +133,18 @@ body {
   color: #1a1a2e;
   border-radius: 28px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 }
 
 /* HEADER */
 .article-header {
   padding: 2.2rem 3rem 1.3rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
+
 .article-date span {
   background: linear-gradient(135deg, #fef3c7, #fce7f3);
   color: #92400e;
@@ -111,6 +152,8 @@ body {
   border-radius: 50px;
   font-size: 0.95rem;
   font-weight: 700;
+  position: relative;
+  z-index: 2;
 }
 .article-header h1 {
   margin: 0;
@@ -118,6 +161,8 @@ body {
   line-height: 1.18;
   font-size: 2.7rem;
   font-weight: 900;
+  position: relative;
+  z-index: 2;
 }
 
 /* BODY */
@@ -169,6 +214,13 @@ body {
 @media (max-width: 968px) {
   .article-shell {
     padding: 6rem 1.5rem 4rem;
+  }
+  
+  /* Hide side icons on mobile/tablet */
+  .article-inner::before,
+  .article-inner::after,
+  .article-card::after {
+    display: none;
   }
   
   .top-logo {
