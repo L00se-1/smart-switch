@@ -14,14 +14,16 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #fafafa;
+            color: #1a1a2e;
+            background: #ffffff;
+            overflow-x: hidden;
         }
 
         .header {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1.5rem 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -37,65 +39,160 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #6366f1;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pilot-icon {
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .hero {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            text-align: center;
+            position: relative;
+            padding: 6rem 2rem 8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .energy-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            font-weight: 900;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .pilot-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pilot-character {
+            font-size: 15rem;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+            animation: pilotFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes pilotFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .destination-tag {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .destination-tag strong {
+            display: block;
+            font-size: 2rem;
+            color: #6366f1;
+            font-weight: 900;
+        }
+
+        .destination-tag span {
+            color: #666;
+            font-size: 0.9rem;
         }
 
         .badge {
             display: inline-block;
-            background: #fef3c7;
-            color: #92400e;
-            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.75rem 1.5rem;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
             margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: #111;
-            line-height: 1.2;
-        }
-
-        .hero h1 .highlight {
-            color: #6366f1;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: #666;
-            margin-bottom: 3rem;
-            line-height: 1.6;
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .waitlist-form {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             max-width: 500px;
-            margin: 0 auto 3rem;
+            margin: -4rem auto 0;
+            position: relative;
+            z-index: 10;
         }
 
         .waitlist-form h3 {
             margin-bottom: 1rem;
-            color: #111;
+            color: #1a1a2e;
+            font-size: 1.8rem;
+            font-weight: 800;
         }
 
         .waitlist-form p {
             color: #666;
             margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .form-group {
@@ -104,34 +201,39 @@
 
         .form-group input {
             width: 100%;
-            padding: 1rem;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border 0.3s;
+            padding: 1.2rem;
+            border: 3px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            background: #fafafa;
         }
 
         .form-group input:focus {
             outline: none;
             border-color: #6366f1;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(99,102,241,0.2);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 1rem;
-            background: #6366f1;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(99,102,241,0.3);
         }
 
         .submit-btn:hover {
-            background: #4f46e5;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99,102,241,0.4);
         }
 
         .trust-line {
@@ -142,16 +244,27 @@
         }
 
         .what-you-get {
-            max-width: 1000px;
-            margin: 5rem auto;
+            max-width: 1200px;
+            margin: 6rem auto;
             padding: 0 2rem;
         }
 
-        .what-you-get h2 {
+        .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #111;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
         }
 
         .benefits {
@@ -161,143 +274,385 @@
         }
 
         .benefit {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid #eee;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
+            padding: 2.5rem;
+            border-radius: 25px;
+            border: 3px solid transparent;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+
+        .benefit:hover::before {
+            opacity: 0.05;
         }
 
         .benefit:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-10px) scale(1.02);
+            border-color: #6366f1;
+            box-shadow: 0 20px 60px rgba(99,102,241,0.2);
+        }
+
+        .benefit > * {
+            position: relative;
+            z-index: 1;
         }
 
         .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .benefit h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #111;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1a1a2e;
+            font-weight: 800;
         }
 
         .benefit p {
-            color: #666;
-            line-height: 1.6;
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         .newsletter-preview {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
-            padding: 5rem 2rem;
-            margin: 5rem 0;
+            padding: 6rem 2rem;
+            margin: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-preview::before {
+            content: '⚡';
+            position: absolute;
+            font-size: 30rem;
+            opacity: 0.03;
+            right: -5rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(15deg);
         }
 
         .newsletter-content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .newsletter-preview h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .newsletter-preview > .newsletter-content > p {
+            text-align: center;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
         }
 
         .newsletter-topics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             margin-top: 3rem;
-            text-align: left;
         }
 
         .topic {
-            background: rgba(255,255,255,0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            padding: 2rem;
+            border-radius: 20px;
             backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .topic:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .topic.clickable {
+            cursor: pointer;
+        }
+
+        .topic.clickable::after {
+            content: '→';
+            position: absolute;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .topic.clickable:hover::after {
+            opacity: 1;
+            right: 1rem;
         }
 
         .topic h4 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .topic p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             opacity: 0.9;
+            line-height: 1.6;
         }
 
         .community-stats {
-            max-width: 1000px;
-            margin: 4rem auto;
+            max-width: 1200px;
+            margin: 6rem auto;
             padding: 0 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
             text-align: center;
         }
 
         .stat {
             padding: 2rem;
+            position: relative;
+        }
+
+        .stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            border-radius: 10px;
         }
 
         .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #6366f1;
-            margin-bottom: 0.5rem;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
         }
 
         .stat-label {
             color: #666;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
         .final-cta {
-            background: white;
-            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
+            padding: 6rem 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '✈️';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.05;
+            left: -3rem;
+            bottom: -3rem;
+            transform: rotate(-15deg);
         }
 
         .final-cta h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #111;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .final-cta p {
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-btn {
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 15px 40px rgba(99,102,241,0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(99,102,241,0.4);
         }
 
         .footer {
-            background: #111;
+            background: #1a1a2e;
             color: white;
             padding: 3rem 2rem;
             text-align: center;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
+        .footer p {
+            opacity: 0.8;
+            margin: 0.5rem 0;
+        }
+
+        .article-section {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+            display: none;
+        }
+
+        .article-content {
+            background: white;
+            padding: 4rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.1);
+        }
+
+        .article-date {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .article-date span {
+            background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 100%);
+            color: #92400e;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .article-content h1 {
+            font-size: 2.8rem;
+            color: #1a1a2e;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            font-weight: 900;
+        }
+
+        .article-content h2 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .article-content p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content ul {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .back-btn {
+            display: block;
+            margin: 3rem auto 0;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99,102,241,0.3);
+        }
+
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .hero-text h1 {
+                font-size: 2.5rem;
             }
 
-            .what-you-get h2,
-            .newsletter-preview h2 {
-                font-size: 2rem;
+            .pilot-character {
+                font-size: 10rem;
+            }
+
+            .destination-tag {
+                position: static;
+                margin: 2rem auto 0;
+                max-width: 250px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
 
             .stat-number {
+                font-size: 3rem;
+            }
+
+            .article-content {
+                padding: 2rem;
+            }
+
+            .article-content h1 {
                 font-size: 2rem;
             }
         }
@@ -306,50 +661,64 @@
 <body>
     <header class="header">
         <nav class="nav">
-            <div class="logo">⚡ SwitchPilot</div>
+            <div class="logo">
+                <span class="pilot-icon">✈️</span>
+                SwitchPilot
+            </div>
         </nav>
     </header>
 
     <section class="hero">
-        <div class="badge">🚀 Currently Building</div>
-        <h1>Tired of Confusing <span class="highlight">Energy Bills?</span></h1>
-        <p>Join our community of people who are done with overpaying. Get weekly insights into what you're really paying for, how the price cap works, and when you're being ripped off.</p>
-
-        <div class="waitlist-form">
-            <h3>Join the Waitlist</h3>
-            <p>Be the first to know when we launch + get exclusive energy-saving insights every week</p>
-            <form onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <input type="email" placeholder="Your email address" required>
+        <div class="energy-grid"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="badge">🚀 Building Together</div>
+                <h1>Your Pilot to Better Energy Deals</h1>
+                <p>We're building an automated service that finds you the best energy tariffs while you sleep. Join our community, share what frustrates you, and help us create something that actually works.</p>
+            </div>
+            <div class="pilot-container">
+                <div class="pilot-character">✈️</div>
+                <div class="destination-tag">
+                    <span>Next Destination:</span>
+                    <strong>£200+ Saved</strong>
                 </div>
-                <button type="submit" class="submit-btn">Get Weekly Insights</button>
-            </form>
-            <p class="trust-line">🔒 We respect your inbox. Unsubscribe anytime.</p>
+            </div>
         </div>
-
-        <p style="color: #999; font-size: 0.9rem;">Join <strong style="color: #6366f1;">500+</strong> people on the waitlist</p>
     </section>
 
+    <div class="waitlist-form">
+        <h3>Join the Flight Crew ✈️</h3>
+        <p>Get weekly insights + early access when we launch</p>
+        <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <input type="email" placeholder="Your email address" required>
+            </div>
+            <button type="submit" class="submit-btn">Get Weekly Insights</button>
+        </form>
+        <p class="trust-line">🔒 Unsubscribe anytime. We respect your inbox.</p>
+    </div>
+
     <section class="what-you-get">
-        <h2>What You'll Get Every Week</h2>
+        <h2 class="section-title">What You'll Get Every Week</h2>
+        <p class="section-subtitle">Be part of building the future of energy switching</p>
         <div class="benefits">
             <div class="benefit">
-                <div class="benefit-icon">📊</div>
+                <span class="benefit-icon">📊</span>
                 <h3>Bill Breakdown</h3>
                 <p>Plain English explanations of what you're actually paying for - no jargon, no confusion</p>
             </div>
             <div class="benefit">
-                <div class="benefit-icon">💰</div>
+                <span class="benefit-icon">💰</span>
                 <h3>Overpaying Alerts</h3>
                 <p>Find out if you're being charged more than you should be based on the latest price cap</p>
             </div>
             <div class="benefit">
-                <div class="benefit-icon">📈</div>
+                <span class="benefit-icon">📈</span>
                 <h3>Industry Updates</h3>
                 <p>What's happening in UK energy - new tariffs, regulatory changes, and market trends</p>
             </div>
             <div class="benefit">
-                <div class="benefit-icon">🎯</div>
+                <span class="benefit-icon">🎯</span>
                 <h3>Actionable Tips</h3>
                 <p>Simple steps you can take this week to reduce your energy costs</p>
             </div>
@@ -358,13 +727,14 @@
 
     <section class="newsletter-preview">
         <div class="newsletter-content">
-            <h2>This Week's Newsletter Topics</h2>
-            <p>Here's a taste of what our community learns about each week</p>
+            <h2>Recent Insights</h2>
+            <p>Here's what our community is learning about right now</p>
             
             <div class="newsletter-topics">
-                <div class="topic">
-                    <h4>🔍 Price Cap Components</h4>
-                    <p>Breaking down the 5 main parts of your energy bill and why they change</p>
+                <div class="topic clickable" onclick="showArticle()">
+                    <h4>🔆 Warm Home Discount Expansion</h4>
+                    <p>What's changing from winter 2025-26 and how it affects your bills - plus why competition is heating up</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">📅 25 Oct 2025</p>
                 </div>
                 <div class="topic">
                     <h4>⚠️ Standing Charges</h4>
@@ -384,23 +754,69 @@
 
     <section class="community-stats">
         <div class="stat">
-            <div class="stat-number">500+</div>
-            <div class="stat-label">Waitlist Members</div>
+            <div class="stat-number">65%</div>
+            <div class="stat-label">of UK households on SVT</div>
         </div>
         <div class="stat">
-            <div class="stat-number">£300+</div>
-            <div class="stat-label">Avg. Overpayment Found</div>
+            <div class="stat-number">£200+</div>
+            <div class="stat-label">potential savings per year</div>
         </div>
         <div class="stat">
-            <div class="stat-number">Weekly</div>
-            <div class="stat-label">Industry Insights</div>
+            <div class="stat-number">You</div>
+            <div class="stat-label">shape what we build</div>
         </div>
     </section>
 
     <section class="final-cta">
-        <h2>Something Amazing is Coming</h2>
-        <p>We're building a tool that will make energy switching automatic and painless.<br>Join the waitlist to be first in line when we launch.</p>
-        <button class="submit-btn" style="max-width: 300px; margin: 0 auto;" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">Join the Waitlist</button>
+        <h2>We're Building This Together</h2>
+        <p>65% of UK households are on Standard Variable Tariffs and could save £200+ per year by switching. Even those on fixed tariffs often miss better deals. We're creating an automated service that handles this for you - but we need your input to build what actually works.</p>
+        <button class="cta-btn" onclick="document.querySelector('.hero').scrollIntoView({behavior: 'smooth'})">Join the Community</button>
+    </section>
+
+    <section class="article-section" id="article">
+        <div class="article-content">
+            <div class="article-date">
+                <span>25 October 2025</span>
+            </div>
+            
+            <h1>🔆 Warm Home Discount Expansion: What's Changing and What It Means for Bills</h1>
+            
+            <h2>Overview</h2>
+            <p>The UK Government has announced a major expansion of the Warm Home Discount (WHD) scheme from winter 2025–26, aiming to make energy bills more affordable for millions of low-income households. The WHD provides a £150 annual rebate on electricity bills to help with winter heating costs.</p>
+            
+            <h2>Why It's Changing</h2>
+            <p>The old system was criticised for being too restrictive and inconsistent, leaving some struggling families without help simply because their home wasn't classed as "expensive to heat." Removing this rule makes eligibility simpler, fairer, and automatic for those on qualifying benefits — ensuring help reaches those most in need, but also increasing the burden on other customers who ultimately subsidise these discounts through their energy bills.</p>
+            
+            <h2>Impact on Bills</h2>
+            <p>The WHD is funded by energy suppliers and spread across all customer bills through Ofgem's Standard Variable Tariff (SVT) price cap, which will also be reflected in fixed tariffs. With the expansion doubling the number of recipients:</p>
+            <ul>
+                <li>The cost of running the scheme will rise.</li>
+                <li>This will add around £15 per year to the average dual-fuel household bill.</li>
+                <li>Including other related initiatives, the total increase is expected to be around £21–£22 per year.</li>
+            </ul>
+            <p>These costs will start being recovered in bills from October 2025, through the Q4 2025 price cap period.</p>
+            <ul>
+                <li>There is also likely to be a further increase from April 2026 to recover Energy supplier's shortfalls, as the expansion started mid–Warm Home Discount scheme year.</li>
+            </ul>
+            
+            <h2>What This Means for Your Bill</h2>
+            <p>From October 2025, it's likely that most energy suppliers will price the cost of the WHD expansion into new fixed contracts. This means even customers switching to a fixed tariff could see the impact reflected in rates — not just those on the price cap.</p>
+            <p>However, as of 26 October 2025, there's a significant amount of price competition emerging in the residential energy market. Much of this is being driven by Fuse Energy, whose aggressively priced fixed deals are putting downward pressure on other suppliers' tariffs.</p>
+            <p>In practical terms, while the WHD expansion adds upward pressure on bills, competitive pricing — especially from newer entrants like Fuse — is helping to offset some of that impact. There are still good-value fixed options available even as policy costs drive up total bills.</p>
+            <p>If you fix now for one or two years, you could potentially avoid higher costs when the next WHD-related adjustment is added to bills next year.</p>
+            
+            <h2>In Summary</h2>
+            <ul>
+                <li>✅ Eligibility widened – no more "high-cost-to-heat" rule in England & Wales</li>
+                <li>✅ Support doubles – from ~3 million to ~6 million households</li>
+                <li>✅ Rebate stays at £150</li>
+                <li>⚠️ Cost increase – around £15–£22 added to the average annual bill this winter</li>
+                <li>⚠️ Further cost increases – around £10–£20 added to the average annual bill likely in April 2026 to make up for supplier shortfall</li>
+                <li>💡 Effective from winter 2025–26, feeding into the Q4 2025 SVT cap</li>
+            </ul>
+            
+            <button class="back-btn" onclick="hideArticle()">← Back to Home</button>
+        </div>
     </section>
 
     <footer class="footer">
@@ -413,17 +829,16 @@
             e.preventDefault();
             const email = e.target.querySelector('input').value;
             
-            // Show success message
             const form = e.target.closest('.waitlist-form');
             form.innerHTML = `
                 <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
-                    <h3 style="color: #6366f1; margin-bottom: 0.5rem;">You're on the list!</h3>
-                    <p style="color: #666;">Check your inbox - your first weekly insight is on its way to <strong>${email}</strong></p>
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+                    <h3 style="background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; font-size: 1.8rem;">Welcome Aboard!</h3>
+                    <p style="color: #666;">Your first weekly insight is taking off to <strong>${email}</strong></p>
                 </div>
             `;
         }
-    </script>
-</body>
-</html>
+
+        function showArticle() {
+
 
