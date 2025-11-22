@@ -364,16 +364,30 @@ if (gameCanvas) {
     
     gameCanvas.addEventListener('mousemove', (e) => {
         const rect = gameCanvas.getBoundingClientRect();
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
+        mouseX = (e.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (e.clientY - rect.top) * (gameCanvas.height / rect.height);
+    });
+    
+    // Improved touch controls with finger offset
+    gameCanvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const rect = gameCanvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60; // Offset so finger doesn't hide plane
     });
     
     gameCanvas.addEventListener('touchmove', (e) => {
         e.preventDefault();
         const rect = gameCanvas.getBoundingClientRect();
         const touch = e.touches[0];
-        mouseX = touch.clientX - rect.left;
-        mouseY = touch.clientY - rect.top;
+        mouseX = (touch.clientX - rect.left) * (gameCanvas.width / rect.width);
+        mouseY = (touch.clientY - rect.top) * (gameCanvas.height / rect.height) - 60; // Offset so finger doesn't hide plane
+    });
+    
+    gameCanvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        // Keep last position so plane doesn't jump
     });
     
     function createItem() {
@@ -492,4 +506,3 @@ if (gameCanvas) {
 
 </body>
 </html>
-
