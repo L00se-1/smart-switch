@@ -146,51 +146,46 @@ animation: gridSlide 15s linear infinite;
 .cta-btn:hover {transform:translateY(-3px);box-shadow:0 15px 50px rgba(236,72,153,0.5);}
 
 /* MOBILE RESPONSIVE */
+
 @media (max-width: 968px) {
 .hero {padding:6rem 1.5rem 4rem;}
 .hero-content {grid-template-columns:1fr;gap:2rem;}
 .hero-text h1 {font-size:2.5rem;}
 .hero-text p {font-size:1.1rem;max-width:100%;}
-.pilot-character {font-size:12rem;}
-.destination-tag {position:static;margin:2rem auto 0;max-width:280px;}
+.pilot-character {font-size:10rem;}
+.destination-tag {position:static;margin:2rem auto 0;max-width:280px;text-align:center;}
 
-```
-/* Hide floating symbols on mobile - they overlap */
+/* Hide floating symbols on mobile */
 .floating-symbols {display:none;}
 
-/* Vision/Mission boxes stack on mobile */
+/* Vision/Mission boxes stack */
 .vision-mission-grid {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
     padding: 0 1.5rem !important;
 }
 
-.waitlist-form {padding:2rem;margin:2rem 1.5rem;}
+.waitlist-form {padding:2rem 1.5rem;margin:2rem 1.5rem;}
 .waitlist-form h3 {font-size:1.6rem;}
+.signup-counter {padding:1rem !important;}
+.signup-counter > div {flex-wrap:wrap;justify-content:center;text-align:center;}
 
 .insights h2, .final-cta h2 {font-size:2rem;}
 .topics {grid-template-columns:1fr;gap:1.5rem;}
-.topic {height:auto;min-height:200px;}
 
 .stats {grid-template-columns:1fr;gap:2rem;}
 .stat-number {font-size:2.5rem;}
 
-/* Game section responsive */
-section:has(a[href="game.html"]) > div {
-    padding: 2.5rem 2rem !important;
-}
-section:has(a[href="game.html"]) h2 {
-    font-size: 1.8rem !important;
-}
-section:has(a[href="game.html"]) p {
-    font-size: 1rem !important;
-}
+/* Price cap chart mobile */
+canvas#priceCapChart {height:400px !important;}
+.price-cap-btn {font-size:12px;padding:8px 15px;}
+
+/* Game section */
+#gameCanvas {max-width:100%;height:auto;}
 
 .final-cta {padding:4rem 1.5rem;}
 .final-cta p {font-size:1rem;}
 .cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
-```
-
 }
 
 @media (max-width: 480px) {
