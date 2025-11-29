@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -8,20 +9,20 @@
 body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0c0e1f;color:#fff;overflow-x:hidden;background-image:linear-gradient(rgba(99,102,241,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(236,72,153,0.12) 1px, transparent 1px);background-size:70px 70px;}
 
 /* HERO */
-.hero {position:relative;padding:8.5rem 2rem 6rem;overflow:hidden;background:#0c0e1f;} 
-.energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;} 
+.hero {position:relative;padding:8.5rem 2rem 6rem;overflow:hidden;background:#0c0e1f;}
+.energy-grid {position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(236,72,153,0.12) 1px,transparent 1px);background-size:70px 70px;opacity:.10;animation:energyGridMove 18s linear infinite;}
 @keyframes energyGridMove {0%{transform:translateY(0)}100%{transform:translateY(60px)}}
 .floating-symbols {position:absolute;inset:0;pointer-events:none;}
-.symbol {position:absolute;font-size:3rem;opacity:.85;animation:drift 10s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 0 20px rgba(99,102,241,0.6));} 
+.symbol {position:absolute;font-size:3rem;opacity:.85;animation:drift 10s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 0 20px rgba(99,102,241,0.6));}
 @keyframes drift {0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(20px,-30px) rotate(10deg)}}
 
 /* Glowing pulse animation for energy symbols */
 .symbol:nth-child(1), .symbol:nth-child(4) {
-    animation: drift 10s ease-in-out infinite, energyGlow 2s ease-in-out infinite;
+animation: drift 10s ease-in-out infinite, energyGlow 2s ease-in-out infinite;
 }
 @keyframes energyGlow {
-    0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(99,102,241,0.6)); }
-    50% { opacity: 1; filter: drop-shadow(0 0 40px rgba(236,72,153,0.9)); }
+0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 20px rgba(99,102,241,0.6)); }
+50% { opacity: 1; filter: drop-shadow(0 0 40px rgba(236,72,153,0.9)); }
 }
 
 .symbol:nth-child(1){left:55%;top:14%}
@@ -30,181 +31,211 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 .symbol:nth-child(4){left:85%;top:28%}
 .symbol:nth-child(5){left:50%;top:35%}
 
-.hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;} 
-.badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);} 
-.hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);} 
-.hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;} 
-.pilot-container {position:relative;display:flex;justify-content:center;align-items:center;} 
-.pilot-character {font-size:18rem;animation:pilotFloat 4s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));} 
+.hero-content {max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:5;}
+.badge {display:inline-block;background:rgba(255,255,255,0.15);padding:.7rem 1.4rem;border-radius:50px;margin-bottom:1.5rem;font-weight:700;font-size:.9rem;backdrop-filter:blur(10px);}
+.hero-text h1 {font-size:4rem;font-weight:900;margin:0 0 1.5rem;text-shadow:0 5px 30px rgba(99,102,241,0.5);}
+.hero-text p {font-size:1.25rem;opacity:.85;line-height:1.6;max-width:90%;}
+.pilot-container {position:relative;display:flex;justify-content:center;align-items:center;}
+.pilot-character {font-size:18rem;animation:pilotFloat 4s infinite ease-in-out;filter:drop-shadow(0 30px 60px rgba(99,102,241,0.55));}
 @keyframes pilotFloat {0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-35px) rotate(6deg)}}
-.destination-tag {position:absolute;bottom:2rem;right:2rem;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:1.2rem 2rem;border-radius:20px;font-weight:700;box-shadow:0 20px 60px rgba(0,0,0,0.4);} 
-.destination-tag strong {font-size:1.8rem;color:#6366f1;display:block;margin-top:.3rem;} 
+.destination-tag {position:absolute;bottom:2rem;right:2rem;background:rgba(255,255,255,0.95);color:#1a1a2e;padding:1.2rem 2rem;border-radius:20px;font-weight:700;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.destination-tag strong {font-size:1.8rem;color:#6366f1;display:block;margin-top:.3rem;}
 
 /* WAITLIST */
-.waitlist-form {max-width:700px;margin:3.5rem auto 4rem;background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);} 
-.waitlist-form h3 {font-size:2rem;font-weight:900;margin-bottom:1rem;color:#1a1a2e;} 
-.waitlist-form p {opacity:.8;margin-bottom:1.5rem;font-size:1.05rem;color:#1a1a2e;} 
-.form-group input {width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;} 
-.submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);margin-top:1rem;} 
+.waitlist-form {max-width:700px;margin:3.5rem auto 4rem;background:#ffffff;color:#1a1a2e;padding:3rem;border-radius:30px;box-shadow:0 25px 80px rgba(0,0,0,0.2);}
+.waitlist-form h3 {font-size:2rem;font-weight:900;margin-bottom:1rem;color:#1a1a2e;}
+.waitlist-form p {opacity:.8;margin-bottom:1.5rem;font-size:1.05rem;color:#1a1a2e;}
+.form-group input {width:100%;padding:1.2rem;border-radius:15px;border:2px solid #eee;background:#fafafa;font-size:1rem;color:#1a1a2e;box-sizing:border-box;}
+.submit-btn {width:100%;padding:1.2rem;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(236,72,153,0.3);margin-top:1rem;}
 
 /* Signup counter animation */
 .signup-counter {
-    animation: counterFadeIn 0.6s ease-out;
+animation: counterFadeIn 0.6s ease-out;
 }
 @keyframes counterFadeIn {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
+0% { opacity: 0; transform: translateY(-10px); }
+100% { opacity: 1; transform: translateY(0); }
 }
 #signupCount {
-    display: inline-block;
-    min-width: 2ch;
-} 
+display: inline-block;
+min-width: 2ch;
+}
 
 /* INSIGHTS */
-.insights {background:#0f1329;padding:6rem 2rem;text-align:center;position:relative;overflow:hidden;} 
+.insights {background:#0f1329;padding:6rem 2rem;text-align:center;position:relative;overflow:hidden;}
 
 /* Animated circuit lines */
 .insights::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #6366f1, transparent);
-    animation: scanline 3s linear infinite;
+content: ‘’;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #6366f1, transparent);
+animation: scanline 3s linear infinite;
 }
 .insights::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #ec4899, transparent);
-    animation: scanline 3s linear infinite reverse;
+content: ‘’;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+height: 2px;
+background: linear-gradient(90deg, transparent, #ec4899, transparent);
+animation: scanline 3s linear infinite reverse;
 }
 @keyframes scanline {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+0% { transform: translateX(-100%); }
+100% { transform: translateX(100%); }
 }
 
-.insights h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;position:relative;z-index:2;} 
-.topics {max-width:1200px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem;} 
-.topic {background:#11162e;padding:2rem 2.2rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;position:relative;overflow:hidden;} 
+.insights h2 {font-size:3rem;font-weight:900;margin-bottom:1rem;position:relative;z-index:2;}
+.topics {max-width:1200px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem;}
+.topic {background:#11162e;padding:2rem 2.2rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 10px 40px rgba(0,0,0,0.45);display:flex;flex-direction:column;justify-content:flex-start;cursor:pointer;transition:.3s;position:relative;overflow:hidden;}
 
 /* Glowing edge on hover */
 .topic::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 22px;
-    padding: 2px;
-    background: linear-gradient(135deg, #6366f1, #ec4899);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.3s;
+content: ‘’;
+position: absolute;
+inset: 0;
+border-radius: 22px;
+padding: 2px;
+background: linear-gradient(135deg, #6366f1, #ec4899);
+-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+opacity: 0;
+transition: opacity 0.3s;
 }
 .topic:hover::before {
-    opacity: 1;
+opacity: 1;
 }
 
-.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(99,102,241,0.4);} 
-.topic h3 {font-size:1.4rem;margin-bottom:0.8rem;margin-top:0;line-height:1.3;} 
-.topic p {opacity:.85;line-height:1.55;font-size:1.05rem;margin:0 0 0.8rem 0;} 
-.topic p:last-child {margin-bottom:0;font-size:0.95rem;} 
+.topic:hover {transform:translateY(-6px);box-shadow:0 15px 50px rgba(99,102,241,0.4);}
+.topic h3 {font-size:1.4rem;margin-bottom:0.8rem;margin-top:0;line-height:1.3;}
+.topic p {opacity:.85;line-height:1.55;font-size:1.05rem;margin:0 0 0.8rem 0;}
+.topic p:last-child {margin-bottom:0;font-size:0.95rem;}
 
 /* STATS */
-.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;position:relative;} 
-.stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;} 
+.stats {max-width:1200px;margin:6rem auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem;text-align:center;padding:0 2rem;position:relative;}
+.stat-number {font-size:3rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
 /* CTA */
-.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;position:relative;overflow:hidden;} 
+.final-cta {text-align:center;padding:6rem 2rem;background:#11152d;position:relative;overflow:hidden;}
 
 /* Animated grid overlay */
 .final-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-        linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: gridSlide 15s linear infinite;
+content: ‘’;
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
+linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);
+background-size: 50px 50px;
+animation: gridSlide 15s linear infinite;
 }
 @keyframes gridSlide {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
+0% { transform: translate(0, 0); }
+100% { transform: translate(50px, 50px); }
 }
 
-.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;position:relative;z-index:2;} 
-.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;position:relative;z-index:2;} 
-.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;position:relative;z-index:2;} 
+.final-cta h2 {font-size:3rem;font-weight:900;margin-bottom:1.5rem;position:relative;z-index:2;}
+.final-cta p {max-width:800px;margin:0 auto 2rem;opacity:.85;font-size:1.1rem;line-height:1.6;position:relative;z-index:2;}
+.cta-btn {padding:1.3rem 3rem;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);transition:.3s;position:relative;z-index:2;}
 .cta-btn:hover {transform:translateY(-3px);box-shadow:0 15px 50px rgba(236,72,153,0.5);}
 
 /* MOBILE RESPONSIVE */
 @media (max-width: 968px) {
-    .hero {padding:6rem 1.5rem 4rem;}
-    .hero-content {grid-template-columns:1fr;gap:2rem;}
-    .hero-text h1 {font-size:2.5rem;}
-    .hero-text p {font-size:1.1rem;max-width:100%;}
-    .pilot-character {font-size:12rem;}
-    .destination-tag {position:static;margin:2rem auto 0;max-width:280px;}
-    
-    /* Hide floating symbols on mobile - they overlap */
-    .floating-symbols {display:none;}
-    
-    /* Vision/Mission boxes stack on mobile */
-    .vision-mission-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
-        padding: 0 1.5rem !important;
-    }
-    
-    .waitlist-form {padding:2rem;margin:2rem 1.5rem;}
-    .waitlist-form h3 {font-size:1.6rem;}
-    
-    .insights h2, .final-cta h2 {font-size:2rem;}
-    .topics {grid-template-columns:1fr;gap:1.5rem;}
-    .topic {height:auto;min-height:200px;}
-    
-    .stats {grid-template-columns:1fr;gap:2rem;}
-    .stat-number {font-size:2.5rem;}
-    
-    /* Game section responsive */
-    section:has(a[href="game.html"]) > div {
-        padding: 2.5rem 2rem !important;
-    }
-    section:has(a[href="game.html"]) h2 {
-        font-size: 1.8rem !important;
-    }
-    section:has(a[href="game.html"]) p {
-        font-size: 1rem !important;
-    }
-    
-    .final-cta {padding:4rem 1.5rem;}
-    .final-cta p {font-size:1rem;}
-    .cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
+.hero {padding:6rem 1.5rem 4rem;}
+.hero-content {grid-template-columns:1fr;gap:2rem;}
+.hero-text h1 {font-size:2.5rem;}
+.hero-text p {font-size:1.1rem;max-width:100%;}
+.pilot-character {font-size:12rem;}
+.destination-tag {position:static;margin:2rem auto 0;max-width:280px;}
+
+```
+/* Hide floating symbols on mobile - they overlap */
+.floating-symbols {display:none;}
+
+/* Vision/Mission boxes stack on mobile */
+.vision-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 0 1.5rem !important;
+}
+
+.waitlist-form {padding:2rem;margin:2rem 1.5rem;}
+.waitlist-form h3 {font-size:1.6rem;}
+
+.insights h2, .final-cta h2 {font-size:2rem;}
+.topics {grid-template-columns:1fr;gap:1.5rem;}
+.topic {height:auto;min-height:200px;}
+
+.stats {grid-template-columns:1fr;gap:2rem;}
+.stat-number {font-size:2.5rem;}
+
+/* Game section responsive */
+section:has(a[href="game.html"]) > div {
+    padding: 2.5rem 2rem !important;
+}
+section:has(a[href="game.html"]) h2 {
+    font-size: 1.8rem !important;
+}
+section:has(a[href="game.html"]) p {
+    font-size: 1rem !important;
+}
+
+.final-cta {padding:4rem 1.5rem;}
+.final-cta p {font-size:1rem;}
+.cta-btn {padding:1rem 2rem;font-size:1.1rem;width:100%;max-width:300px;}
+```
+
 }
 
 @media (max-width: 480px) {
-    .hero-text h1 {font-size:2rem;}
-    .pilot-character {font-size:10rem;}
-    .waitlist-form h3 {font-size:1.4rem;}
-    .insights, .final-cta {padding:4rem 1rem;}
-    
-    /* Responsive logo */
-    .top-logo-wrapper {left:15px !important;gap:6px !important;}
-    .logo-icon {font-size:1.8rem !important;}
-    .logo-text {font-size:1.5rem !important;}
+.hero-text h1 {font-size:2rem;}
+.pilot-character {font-size:10rem;}
+.waitlist-form h3 {font-size:1.4rem;}
+.insights, .final-cta {padding:4rem 1rem;}
+
+```
+/* Responsive logo */
+.top-logo-wrapper {left:15px !important;gap:6px !important;}
+.logo-icon {font-size:1.8rem !important;}
+.logo-text {font-size:1.5rem !important;}
+```
+
+}
+
+/* Price Cap Tool Styles */
+.price-cap-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin: 5px;
+  background: #2c3e50;
+  color: white;
+}
+
+.price-cap-active {
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: white;
+  font-weight: bold;
 }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
 
 <!-- TOP LEFT LOGO -->
+
 <div class="top-logo-wrapper" style="position:absolute; top:25px; left:30px; z-index:9999; display:flex; align-items:center; gap:10px;">
     <span class="logo-icon" style="font-size:2.3rem; filter:drop-shadow(0 5px 10px rgba(0,0,0,0.4));">✈️⚡</span>
     <span class="logo-text" style="font-size:1.9rem; font-weight:900; letter-spacing:-0.5px;">SwitchPilot</span>
@@ -227,6 +258,7 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 </div>
 
 <!-- Vision & Mission Boxes -->
+
 <div class="vision-mission-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:0 2rem;position:relative;z-index:5;">
   <div style="background:rgba(17,22,46,0.95);padding:2rem;border-radius:22px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);">
     <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;">
@@ -247,27 +279,70 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 </section>
 
 <!-- WHO WE ARE -->
+
 <section style="max-width:900px;margin:5rem auto 0;padding:0 2rem;">
 <div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
   <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">Who We Are</h2>
-  
+
   <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
     We're just two people who've been working in the UK energy industry recently. Before this? <strong>Zero knowledge about energy bills.</strong>
   </p>
-  
+
   <p style="font-size:1.1rem;line-height:1.7;margin-bottom:1.2rem;opacity:0.9;">
     Now? We've learned things that shocked us. And we can't unsee them.
   </p>
-  
+
   <div style="background:rgba(99,102,241,0.1);padding:1.5rem;border-radius:15px;border-left:4px solid #6366f1;margin:1.5rem 0;">
     <p style="font-size:1rem;line-height:1.6;margin:0;opacity:0.95;">
       Did you know you're paying wind farms to turn off when it's too windy (<strong>constraint payments</strong>), whilst funding them through <strong>CfDs</strong>? Or funding nuclear plant investors <strong>before it's even built</strong> (Nuclear RAB)? Through the Warm Home Discount, you're subsidising other people's discounts even if you don't qualify.
     </p>
   </div>
-  
+
   <p style="font-size:1.1rem;line-height:1.7;margin-top:1.2rem;margin-bottom:0;opacity:0.9;">
     None of this is explained on your bill. But you're paying for all of it. That's why we're building SwitchPilot <strong>WITH you</strong>—educating you while creating a service that actually works for you. Because an informed customer creates a more competitive market for everyone.
   </p>
+</div>
+</section>
+
+<!-- EMBEDDED PRICE CAP TOOL -->
+<section style="max-width:1400px;margin:5rem auto 0;padding:0 2rem;">
+<div style="background:rgba(17,22,46,0.95);padding:3rem;border-radius:22px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <div style="text-align:center;margin-bottom:2rem;">
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Energy Price Cap Breakdown</h2>
+    <p style="font-size:1.1rem;opacity:0.85;max-width:800px;margin:0 auto;">
+      Ever wondered where your energy bill money actually goes? We've broken down the UK price cap into every single cost component.
+    </p>
+  </div>
+
+  <div style="margin-bottom:30px;text-align:center;">
+    <p style="font-size:14px;color:#bdc3c7;margin-bottom:10px;font-weight:500;">Payment Method:</p>
+    <button class="price-cap-btn price-cap-active" onclick="setPriceCapMethod('directDebit')">Direct Debit</button>
+    <button class="price-cap-btn" onclick="setPriceCapMethod('standardCredit')">Standard Credit</button>
+    <button class="price-cap-btn" onclick="setPriceCapMethod('prepayment')">Prepayment</button>
+  </div>
+  
+  <div style="height:600px;margin-bottom:30px;">
+    <canvas id="priceCapChart"></canvas>
+  </div>
+  
+  <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:30px;">
+    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:rgba(44,62,80,0.5);">
+      <p style="font-size:12px;color:#bdc3c7;margin-bottom:5px;">Oct-Dec 2025</p>
+      <p id="priceCapPeriod1Total" style="font-size:32px;font-weight:bold;color:#ecf0f1;margin:0;">£1755</p>
+    </div>
+    <div style="text-align:center;padding:20px;border-radius:8px;min-width:200px;background:linear-gradient(135deg,#6366f1,#ec4899);">
+      <p style="font-size:12px;color:#ecf0f1;margin-bottom:5px;">Jan-Mar 2026</p>
+      <p id="priceCapPeriod2Total" style="font-size:32px;font-weight:bold;color:white;margin:0;">£1758</p>
+      <p id="priceCapChangeAmount" style="font-size:14px;color:#ecf0f1;margin-top:5px;">+£3 (+0.2%)</p>
+    </div>
+  </div>
+  
+  <div style="margin-top:30px;padding:15px;background:rgba(44,62,80,0.3);border-left:4px solid #6366f1;font-size:12px;color:#bdc3c7;border-radius:5px;">
+    <p style="margin:0 0 5px 0;"><strong>Source:</strong> OFGEM (Office of Gas and Electricity Markets)</p>
+    <p style="margin:0 0 5px 0;"><strong>Typical Consumption:</strong> 2,700kWh electricity, 11,500kWh gas annually</p>
+    <p style="margin:5px 0 0 0;"><strong>Note:</strong> Hover over chart bars to see individual cost components and their values.</p>
+  </div>
 </div>
 </section>
 
@@ -337,41 +412,72 @@ body {margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 </section>
 
 <!-- GAME SECTION -->
+
 <section style="max-width:1200px;margin:6rem auto;padding:0 2rem;text-align:center;">
 <div style="background:#11162e;padding:3rem;border-radius:30px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;overflow:hidden;">
-  
+
   <!-- Animated background -->
+
   <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
-  
+
   <div style="position:relative;z-index:2;">
     <div style="font-size:3rem;margin-bottom:1rem;">✈️⚡💷</div>
     <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Whilst We Build You a Service That Works for YOU</h2>
     <p style="font-size:1.1rem;opacity:0.85;margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">Why not play a fun game? Move your mouse to pilot the plane, catch energy savings, and avoid obstacles!</p>
-    
-    <div id="gameStartScreen" style="margin-bottom:1.5rem;">
-      <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);">🎮 Play Now</button>
-    </div>
-    
-    <canvas id="gameCanvas" width="700" height="400" style="border:3px solid #6366f1;border-radius:15px;background:#0a0c1a;max-width:100%;cursor:none;display:none;margin:0 auto 1.5rem;"></canvas>
-    
-    <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
-      <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
-        <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">Score</div>
-        <div id="gameScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
-      </div>
-      <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
-        <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">High Score</div>
-        <div id="gameHighScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
-      </div>
-    </div>
-    
-    <div id="gameOverScreen" style="display:none;margin-top:2rem;">
-      <h3 style="font-size:2rem;margin-bottom:1rem;color:#ec4899;">Game Over! 💥</h3>
-      <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
-      <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;">Play Again</button>
-    </div>
+
+```
+<div id="gameStartScreen" style="margin-bottom:1.5rem;">
+  <button onclick="startMainGame()" style="padding:1.3rem 3rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:20px;font-size:1.3rem;font-weight:700;cursor:pointer;box-shadow:0 10px 40px rgba(236,72,153,0.4);">🎮 Play Now</button>
+</div>
+
+<canvas id="gameCanvas" width="700" height="400" style="border:3px solid #6366f1;border-radius:15px;background:#0a0c1a;max-width:100%;cursor:none;display:none;margin:0 auto 1.5rem;"></canvas>
+
+<div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
+  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">Score</div>
+    <div id="gameScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
+  </div>
+  <div style="padding:1rem 2rem;background:rgba(99,102,241,0.2);border-radius:15px;border:2px solid rgba(99,102,241,0.3);">
+    <div style="font-size:0.9rem;opacity:0.7;margin-bottom:0.3rem;">High Score</div>
+    <div id="gameHighScore" style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</div>
   </div>
 </div>
+
+<div id="gameOverScreen" style="display:none;margin-top:2rem;">
+  <h3 style="font-size:2rem;margin-bottom:1rem;color:#ec4899;">Game Over! 💥</h3>
+  <p style="font-size:1.3rem;margin-bottom:1rem;">Final Score: <span id="finalGameScore" style="color:#6366f1;font-weight:900;">0</span></p>
+  <button onclick="restartMainGame()" style="padding:1rem 2.5rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border:none;border-radius:15px;font-size:1.2rem;font-weight:700;cursor:pointer;">Play Again</button>
+</div>
+```
+
+  </div>
+</div>
+</section>
+
+<!-- TOOLS SECTION -->
+
+<section style="background:#0f1329;padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),linear-gradient(90deg, rgba(236,72,153,0.08) 1px, transparent 1px);background-size:40px 40px;opacity:0.5;animation:gridSlide 20s linear infinite;pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:2;">
+    <div style="font-size:3rem;margin-bottom:1rem;">🔧📊✨</div>
+    <h2 style="font-size:2.5rem;font-weight:900;margin-bottom:1rem;">Energy Bill Tools</h2>
+    <p style="font-size:1.1rem;opacity:0.85;margin-bottom:2.5rem;max-width:700px;margin-left:auto;margin-right:auto;">Explore interactive tools to understand where your energy money really goes</p>
+
+```
+<div style="max-width:800px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:2rem;">
+  <!-- Price Cap Tool -->
+  <a href="price-cap.html" style="text-decoration:none;display:block;background:rgba(17,22,46,0.95);padding:2.5rem;border-radius:22px;border:2px solid rgba(99,102,241,0.3);box-shadow:0 15px 50px rgba(0,0,0,0.4);transition:all 0.3s;position:relative;overflow:hidden;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(99,102,241,0.5)';" onmouseout="this.style.transform='';this.style.boxShadow='0 15px 50px rgba(0,0,0,0.4)';">
+    <div style="position:absolute;inset:0;border-radius:22px;padding:2px;background:linear-gradient(135deg,#6366f1,#ec4899);-webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity 0.3s;" onmouseover="this.style.opacity='1';" onmouseout="this.style.opacity='0';"></div>
+    <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+    <h3 style="font-size:1.8rem;font-weight:900;margin-bottom:1rem;color:#fff;">Energy Price Cap Breakdown</h3>
+    <p style="font-size:1.1rem;opacity:0.85;line-height:1.6;color:#fff;margin-bottom:1.5rem;">Interactive visualization showing exactly where your energy bill money goes—from wholesale costs to hidden policy charges like Nuclear RAB and constraint payments.</p>
+    <span style="display:inline-block;padding:0.8rem 2rem;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;border-radius:15px;font-weight:700;font-size:1rem;">Explore the Tool →</span>
+  </a>
+</div>
+```
+
+  </div>
 </section>
 
 <section class="final-cta">
@@ -631,6 +737,133 @@ if (gameCanvas) {
         startMainGame();
     };
 }
+
+// PRICE CAP TOOL CODE
+const priceCapData = {
+  directDebit: {
+    period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 270, policy: 215, ebit: 42, headroom: 18, levelisation: 10, vat: 84, total: 1755 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 279, policy: 236, ebit: 44, headroom: 18, levelisation: 10, vat: 84, total: 1758 }
+  },
+  standardCredit: {
+    period1: { name: "Oct-Dec 2025", wholesale: 720, networks: 396, operating: 406, policy: 215, ebit: 44, headroom: 20, levelisation: 0, vat: 90, total: 1890 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 397, operating: 415, policy: 236, ebit: 45, headroom: 20, levelisation: 0, vat: 90, total: 1894 }
+  },
+  prepayment: {
+    period1: { name: "Oct-Dec 2025", wholesale: 719, networks: 391, operating: 296, policy: 215, ebit: 42, headroom: 19, levelisation: -56, vat: 81, total: 1707 },
+    period2: { name: "Jan-Mar 2026", wholesale: 690, networks: 392, operating: 304, policy: 236, ebit: 44, headroom: 19, levelisation: -56, vat: 81, total: 1711 }
+  }
+};
+
+const priceCapColors = {
+  wholesale: '#5DADE2',
+  networks: '#884EA0',
+  operating: '#E67E22',
+  policy: '#34495E',
+  ebit: '#A569BD',
+  headroom: '#7F8C8D',
+  levelisation: '#52796F',
+  vat: '#922B3E'
+};
+
+const priceCapLabels = {
+  wholesale: 'Wholesale incl. CFD',
+  networks: 'Networks',
+  operating: 'Operating costs',
+  policy: 'Policy',
+  ebit: 'EBIT allowance',
+  headroom: 'Headroom',
+  levelisation: 'Levelisation',
+  vat: 'VAT'
+};
+
+let currentPriceCapMethod = 'directDebit';
+let priceCapChart = null;
+
+function renderPriceCapChart() {
+  const data = priceCapData[currentPriceCapMethod];
+  const ctx = document.getElementById('priceCapChart');
+  
+  if (!ctx) return;
+  
+  if (priceCapChart) {
+    priceCapChart.destroy();
+  }
+  
+  const components = ['wholesale', 'networks', 'operating', 'policy', 'ebit', 'headroom', 'levelisation', 'vat'];
+  
+  priceCapChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [data.period1.name, data.period2.name],
+      datasets: components.map(comp => ({
+        label: priceCapLabels[comp],
+        data: [data.period1[comp], data.period2[comp]],
+        backgroundColor: priceCapColors[comp],
+        borderColor: priceCapColors[comp],
+        borderWidth: 1
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' } },
+        y: { stacked: true, ticks: { color: '#ecf0f1' }, grid: { color: '#34495e' }, title: { display: true, text: 'Cost (£)', color: '#ecf0f1' } }
+      },
+      plugins: {
+        legend: { labels: { color: '#ecf0f1' } },
+        tooltip: {
+          backgroundColor: 'white',
+          titleColor: '#2c3e50',
+          bodyColor: '#2c3e50',
+          borderColor: '#ddd',
+          borderWidth: 2,
+          callbacks: {
+            footer: function(items) {
+              const total = items.reduce((sum, item) => sum + item.parsed.y, 0);
+              return 'Total: £' + Math.round(total);
+            }
+          }
+        }
+      }
+    }
+  });
+  
+  updatePriceCapStats();
+}
+
+function updatePriceCapStats() {
+  const data = priceCapData[currentPriceCapMethod];
+  const p1 = document.getElementById('priceCapPeriod1Total');
+  const p2 = document.getElementById('priceCapPeriod2Total');
+  const change = document.getElementById('priceCapChangeAmount');
+  
+  if (p1) p1.textContent = '£' + data.period1.total;
+  if (p2) p2.textContent = '£' + data.period2.total;
+  
+  if (change) {
+    const changeVal = data.period2.total - data.period1.total;
+    const percentChange = ((changeVal / data.period1.total) * 100).toFixed(1);
+    change.textContent = (changeVal >= 0 ? '+' : '') + '£' + changeVal + ' (' + (changeVal >= 0 ? '+' : '') + percentChange + '%)';
+  }
+}
+
+function setPriceCapMethod(method) {
+  currentPriceCapMethod = method;
+  document.querySelectorAll('.price-cap-btn').forEach(btn => {
+    btn.className = 'price-cap-btn';
+  });
+  event.target.className = 'price-cap-btn price-cap-active';
+  renderPriceCapChart();
+}
+
+// Initialize price cap chart when page loads
+window.addEventListener('load', function() {
+  if (typeof Chart !== 'undefined' && document.getElementById('priceCapChart')) {
+    renderPriceCapChart();
+  }
+});
+
 </script>
 
 </body>
