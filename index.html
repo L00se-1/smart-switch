@@ -561,8 +561,8 @@ function updateCounterDisplay(count) {
     if (progressBar) progressBar.style.width = Math.min(100, (count / TARGET_SIGNUPS) * 100) + '%';
 }
 
-// Fetch global count on page load
-fetch(SCRIPT_URL)
+// Fetch ONLY verified count ("yes") from Apps Script
+fetch(SCRIPT_URL + '?getCount=1')
     .then(response => response.json())
     .then(data => {
         signupCount = data.count || 0;
@@ -572,6 +572,7 @@ fetch(SCRIPT_URL)
         console.log('Could not fetch signup count:', err);
         updateCounterDisplay(0);
     });
+
 
 function animateCounter(element, newValue) {
     element.style.transform = 'scale(1.3)';
@@ -918,5 +919,6 @@ window.addEventListener('load', function() {
 
 </body>
 </html>
+
 
 
