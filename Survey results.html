@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey Results: Why 3 in 4 People Want Auto-Switching | SwitchPilot</title>
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0c0e1f;
+  color: #fff;
+  line-height: 1.6;
+}
+
+.header {
+  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(236,72,153,0.2));
+  padding: 2rem;
+  text-align: center;
+  border-bottom: 2px solid rgba(99,102,241,0.3);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header .meta {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.back-link {
+  display: inline-block;
+  margin: 2rem 0 1rem 0;
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #ec4899;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.intro-box {
+  background: rgba(17,22,46,0.95);
+  padding: 2rem;
+  border-radius: 18px;
+  border: 2px solid rgba(99,102,241,0.3);
+  margin-bottom: 3rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.section {
+  background: rgba(17,22,46,0.95);
+  padding: 2.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.section h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem 0;
+  color: #fff;
+}
+
+.section h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem 0;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-highlight {
+  background: rgba(99,102,241,0.15);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #6366f1;
+  margin: 1.5rem 0;
+}
+
+.stat-highlight strong {
+  color: #6366f1;
+  font-size: 1.3rem;
+}
+
+.key-stat {
+  display: inline-block;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+.insight-box {
+  background: rgba(236,72,153,0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #ec4899;
+  margin: 1.5rem 0;
+}
+
+.insight-box .label {
+  font-weight: 700;
+  color: #ec4899;
+  margin-bottom: 0.5rem;
+}
+
+ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin: 0.5rem 0;
+  opacity: 0.9;
+}
+
+.takeaway-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.takeaway-card {
+  background: rgba(99,102,241,0.1);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 2px solid rgba(99,102,241,0.3);
+}
+
+.takeaway-card .number {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.takeaway-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(236,72,153,0.2));
+  padding: 2.5rem;
+  border-radius: 18px;
+  border: 2px solid rgba(99,102,241,0.3);
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.cta-box h3 {
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 10px 30px rgba(236,72,153,0.4);
+  transition: transform 0.2s;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .container {
+    padding: 1.5rem;
+  }
+  
+  .section {
+    padding: 1.5rem;
+  }
+  
+  .takeaway-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 Why 3 in 4 People Want Auto-Switching</h1>
+  <div class="meta">Survey Results from 200 UK Energy Customers | Published 30 Nov 2025</div>
+</div>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to SwitchPilot</a>
+  
+  <div class="intro-box">
+    <h2 style="margin-top:0;">Before Building Anything, We Asked Real People</h2>
+    <p>We surveyed 200 UK energy customers to understand what they actually want from an auto-switching service. The results validated everything we suspected—and revealed some surprises.</p>
+    <p><strong>Here's what we found:</strong></p>
+  </div>
+
+  <!-- FINDING 1 -->
+  <div class="section">
+    <h2>1. Overall Interest in Auto-Switching</h2>
+    
+    <div class="stat-highlight">
+      <strong>155 out of 200 (77.5%)</strong> said "Yes – Definitely" or "Yes – with the option to confirm before switching."
+    </div>
+    
+    <p class="key-stat">That's 3 in 4 people ready for this service.</p>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p>The demand isn't just there—it's overwhelming. Nearly 8 in 10 people want someone to handle switching for them. The market is ready.</p>
+    </div>
+  </div>
+
+  <!-- FINDING 2 -->
+  <div class="section">
+    <h2>2. Tariff Breakdown (of 155 interested)</h2>
+    
+    <p>We asked what tariff people were on:</p>
+    <ul>
+      <li><strong>40 people (26%)</strong> → Standard Variable Tariff (SVT)</li>
+      <li><strong>26 people (17%)</strong> → Don't Know (likely disengaged)</li>
+      <li><strong>83 people (54%)</strong> → Fixed tariff</li>
+      <li>Remainder → Other</li>
+    </ul>
+    
+    <div class="stat-highlight">
+      <strong>43% (66 out of 155)</strong> are either on SVT or don't know their tariff.
+    </div>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p>Nearly half of interested customers are prime auto-switch candidates—they're already overpaying or completely disengaged. Even those on fixed tariffs miss renewal windows and roll onto expensive SVTs.</p>
+    </div>
+  </div>
+
+  <!-- FINDING 3 -->
+  <div class="section">
+    <h2>3. Data Sharing Willingness (of 155 interested)</h2>
+    
+    <p>How comfortable are people sharing data (usage, address, email)?</p>
+    <ul>
+      <li><strong>90 people (58%)</strong> → Comfortable sharing data</li>
+      <li><strong>27 people (17%)</strong> → Indifferent</li>
+      <li><strong>38 people (25%)</strong> → Unwilling</li>
+    </ul>
+    
+    <div class="stat-highlight">
+      <strong>75% are not opposed</strong> to sharing the data needed for auto-switching.
+    </div>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p>The "data privacy barrier" is overstated. The real barrier is execution and trust—people need to believe you'll handle their data responsibly and actually deliver value.</p>
+    </div>
+  </div>
+
+  <!-- FINDING 4 -->
+  <div class="section">
+    <h2>4. Knowledge of Bills (of 155 interested)</h2>
+    
+    <p>How well do people understand what they're paying for?</p>
+    <ul>
+      <li><strong>19 people (12%)</strong> → No knowledge, interested in learning</li>
+      <li><strong>76 people (49%)</strong> → Vague knowledge</li>
+      <li><strong>60 people (39%)</strong> → Either knowledgeable or not interested in learning</li>
+    </ul>
+    
+    <div class="stat-highlight">
+      <strong>61% would benefit from education</strong> about what's actually on their bills.
+    </div>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p>This is exactly why we're taking a <strong>knowledge-first approach</strong>. Transparency isn't just ethical—it's a trust-builder. When people understand their bills, they see the value in what you're offering.</p>
+    </div>
+  </div>
+
+  <!-- FINDING 5 -->
+  <div class="section">
+    <h2>5. Switching Behaviour (of 155 interested)</h2>
+    
+    <p>When was the last time people switched energy suppliers?</p>
+    <ul>
+      <li><strong>28 people (18%)</strong> → Never switched</li>
+      <li><strong>23 people (15%)</strong> → Say they don't switch</li>
+      <li><strong>24 people (15%)</strong> → Switched once, 5+ years ago</li>
+      <li><strong>40 people (26%)</strong> → Switched once, in last 5 years</li>
+      <li><strong>49 people (32%)</strong> → Switched once, in last 3 years</li>
+      <li>Small remainder → Switch every year</li>
+    </ul>
+    
+    <div class="stat-highlight">
+      <strong>48% (75 out of 155) are long-term disengaged</strong>—haven't switched in 5+ years or never.
+    </div>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p>This is the <strong>exact SVT-style stickiness suppliers target</strong>. Nearly half of people interested in auto-switching are stuck in long-term inertia. They want to switch but won't do it manually.</p>
+    </div>
+  </div>
+
+  <!-- FINDING 6 -->
+  <div class="section">
+    <h2>6. Reasons for Not Switching (of 155 interested)</h2>
+    
+    <p>Why haven't people switched? (Multi-select question)</p>
+    <ul>
+      <li><strong>80 people (52%)</strong> → Content with current provider</li>
+      <li><strong>23 people (15%)</strong> → Too much hassle</li>
+      <li><strong>17 people (11%)</strong> → Annual savings not worth it</li>
+      <li><strong>16 people (10%)</strong> → Not enough visibility of deals</li>
+      <li><strong>5 people (3%)</strong> → Don't know how to switch</li>
+      <li><strong>14 people (9%)</strong> → Other</li>
+    </ul>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p>Even those citing "content" still said yes to auto-switching. <strong>Content = inertia, not true loyalty.</strong> Remove the friction, and they move.</p>
+    </div>
+  </div>
+
+  <!-- FINDING 7 - THE BIG ONE -->
+  <div class="section">
+    <h2>7. The "Content" Paradox (all 200 respondents)</h2>
+    
+    <div class="stat-highlight">
+      <strong>110 out of 200 (55%)</strong> said they're content with their current provider.
+    </div>
+    
+    <p>But here's the kicker:</p>
+    
+    <div class="stat-highlight">
+      <strong>Of those 110 "content" customers, 80 (73%) still said they'd use auto-switching.</strong>
+    </div>
+    
+    <div class="insight-box">
+      <div class="label">💡 What This Means:</div>
+      <p><strong>The biggest pool of movable customers are the "content" ones.</strong> They're not loyal—they're just stuck in inertia. When you remove the friction of switching, even satisfied customers will move for better deals.</p>
+      <p style="margin-top:1rem;">This is the entire market dynamic in one stat. Suppliers rely on customer laziness, not satisfaction.</p>
+    </div>
+  </div>
+
+  <!-- BIG TAKEAWAYS -->
+  <div class="section">
+    <h2>Big Takeaways</h2>
+    
+    <div class="takeaway-grid">
+      <div class="takeaway-card">
+        <div class="number">1</div>
+        <p><strong>Demand exists.</strong> 77.5% are open to auto-switching—this isn't a niche product.</p>
+      </div>
+      
+      <div class="takeaway-card">
+        <div class="number">2</div>
+        <p><strong>Target pool is disengaged.</strong> 43% on SVT/Don't Know; 48% haven't switched in 5+ years.</p>
+      </div>
+      
+      <div class="takeaway-card">
+        <div class="number">3</div>
+        <p><strong>Data barrier is overstated.</strong> 75% are fine (or indifferent) to sharing necessary data.</p>
+      </div>
+      
+      <div class="takeaway-card">
+        <div class="number">4</div>
+        <p><strong>Education is leverage.</strong> 61% don't understand bills—explaining builds trust.</p>
+      </div>
+      
+      <div class="takeaway-card">
+        <div class="number">5</div>
+        <p><strong>"Content" isn't loyalty.</strong> 73% of satisfied customers still want auto-switching.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT THIS MEANS FOR SWITCHPILOT -->
+  <div class="section">
+    <h2>What This Means for SwitchPilot</h2>
+    
+    <p>These results validate our entire approach:</p>
+    
+    <h3>✅ Education First</h3>
+    <p>61% of people don't fully understand their bills. By explaining hidden costs like constraint payments, CfD charges, and Nuclear RAB—we build trust and show why switching matters.</p>
+    
+    <h3>✅ Automation Removes Friction</h3>
+    <p>52% cite "content with provider" as their reason for not switching, yet 73% of them still want auto-switching. The problem isn't satisfaction—it's inertia. Automation solves that.</p>
+    
+    <h3>✅ Transparency Builds Trust</h3>
+    <p>75% are willing to share data when they trust the service. Being upfront about how we use data, what we do, and why—that's how we earn permission.</p>
+    
+    <h3>✅ The Market Is Ready</h3>
+    <p>77.5% want this. Nearly half are on expensive tariffs or completely disengaged. The opportunity is massive.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h3>Be Part of What We're Building</h3>
+    <p style="margin:1rem 0 1.5rem 0;">These 200 people helped validate our approach. Now we need 10,000 early access pilots to shape what we build next.</p>
+    <a href="index.html#waitlist" class="cta-btn">Join the Flight Crew →</a>
+  </div>
+
+  <!-- FINAL NOTE -->
+  <div class="section" style="margin-top:2rem;text-align:center;">
+    <p style="font-size:1.2rem;opacity:0.9;margin-bottom:1rem;"><strong>But here's the thing—surveys are just surveys.</strong></p>
+    <p style="font-size:1.05rem;line-height:1.7;opacity:0.85;max-width:700px;margin:0 auto;">
+      We don't want to build a product <em>for</em> you based on a survey. We want to build a community and listen to <strong>YOU</strong>—and create a product <strong>WITH</strong> you that actually works for you. Your feedback, your needs, your experience—that's what shapes SwitchPilot.
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
