@@ -362,13 +362,15 @@
         <div class="info-banner">
             <div class="icon">💡</div>
             <div class="text">
-                <h3>Energy prices are dropping!</h3>
-                <p>Fixed deals are now beating the price cap. Lock in a rate before prices change again. We compare 200+ tariffs daily from the Big 6 suppliers.</p>
+                <h3>Price cap rising to £1,758 in January!*</h3>
+                <p>Fixed deals are currently beating the cap. Lock in a rate now before the January increase. We compare tariffs daily from multiple suppliers.</p>
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">*Based on Ofgem typical consumption: 2,700 kWh electricity + 11,500 kWh gas per year.</p>
             </div>
         </div>
 
         <!-- Input Section -->
         <div class="input-section">
+            <p style="color: #94a3b8; margin-bottom: 20px; font-size: 0.9rem;">Enter your actual usage from a recent bill, or just pick your household size below for an estimate.</p>
             <div class="input-grid">
                 <div>
                     <label>📍 Your Region</label>
@@ -391,11 +393,11 @@
                 </div>
                 <div>
                     <label>⚡ Electricity (kWh/year)</label>
-                    <input type="number" id="elecUsage" value="2900">
+                    <input type="number" id="elecUsage" value="2700">
                 </div>
                 <div>
                     <label>🔥 Gas (kWh/year)</label>
-                    <input type="number" id="gasUsage" value="12000">
+                    <input type="number" id="gasUsage" value="11500">
                 </div>
                 <div>
                     <label>🏠 Fuel Type</label>
@@ -405,11 +407,12 @@
                     </select>
                 </div>
             </div>
+            <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 10px; margin-top: 20px;">Or pick your household size:</p>
             <div class="preset-buttons">
-                <button class="preset-btn" data-elec="1800" data-gas="7500">🏢 1-Bed Flat</button>
-                <button class="preset-btn" data-elec="2900" data-gas="12000">🏠 2-3 Bed House</button>
-                <button class="preset-btn" data-elec="4300" data-gas="17000">🏡 4+ Bed House</button>
-                <button class="preset-btn" data-elec="2000" data-gas="0">⚡ Elec Only</button>
+                <button class="preset-btn" data-elec="1800" data-gas="7500">🏢 Small (1-2 bed)</button>
+                <button class="preset-btn" data-elec="2700" data-gas="11500">🏠 Medium (Ofgem typical)</button>
+                <button class="preset-btn" data-elec="4300" data-gas="17000">🏡 Large (4+ bed)</button>
+                <button class="preset-btn" data-elec="2000" data-gas="0">⚡ Electricity Only</button>
             </div>
         </div>
 
@@ -420,8 +423,8 @@
                 <div class="label">Cheapest Deal</div>
             </div>
             <div class="stat-card">
-                <div class="value" id="capPrice">-</div>
-                <div class="label">Price Cap (SVT)</div>
+                <div class="value" id="capPrice">£1,758</div>
+                <div class="label" id="capLabel">Price Cap (Jan '26)</div>
             </div>
             <div class="stat-card">
                 <div class="value" id="savingsAmount">-</div>
@@ -443,26 +446,27 @@
 
         <!-- Price Cap Info -->
         <div class="price-cap-section">
-            <h2>⚠️ Ofgem Price Cap (Jan 2025)</h2>
-            <p style="color: #94a3b8; margin-bottom: 15px; font-size: 0.9rem;">The maximum your supplier can charge on a standard variable tariff. Fixed deals often beat this!</p>
+            <h2>⚠️ Ofgem Price Cap (Direct Debit)</h2>
+            <p style="color: #94a3b8; margin-bottom: 15px; font-size: 0.9rem;">The maximum your supplier can charge on a standard variable tariff. All figures include 5% VAT.</p>
             <div class="price-cap-grid">
                 <div class="cap-item">
-                    <div class="value">24.5p</div>
-                    <div class="label">Elec Unit Rate</div>
+                    <div class="value">£1,755*</div>
+                    <div class="label">Oct-Dec 2025</div>
+                </div>
+                <div class="cap-item" style="border-color: #ef4444; background: rgba(239, 68, 68, 0.1);">
+                    <div class="value" style="color: #ef4444;">£1,758*</div>
+                    <div class="label">Jan-Mar 2026 ↑</div>
                 </div>
                 <div class="cap-item">
-                    <div class="value">53.6p</div>
-                    <div class="label">Elec Standing</div>
+                    <div class="value">£1,894*</div>
+                    <div class="label">Standard Credit</div>
                 </div>
                 <div class="cap-item">
-                    <div class="value">6.2p</div>
-                    <div class="label">Gas Unit Rate</div>
-                </div>
-                <div class="cap-item">
-                    <div class="value">32.4p</div>
-                    <div class="label">Gas Standing</div>
+                    <div class="value">£1,711*</div>
+                    <div class="label">Prepayment</div>
                 </div>
             </div>
+            <p style="color: #64748b; margin-top: 15px; font-size: 0.8rem;">*Based on Ofgem's typical domestic consumption values: <strong>2,700 kWh electricity</strong> + <strong>11,500 kWh gas</strong> per year. Your actual costs will vary based on your usage. Electricity-only uses regional cap data which varies by DNO area.</p>
         </div>
 
         <!-- Tariff Cards -->
@@ -500,24 +504,26 @@
             <h2 style="color: #e0e0e0; font-size: 1.2rem; margin-bottom: 20px;">💰 What You're Actually Paying For</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                 <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 20px;">
-                    <h3 style="color: #a855f7; font-size: 1rem; margin-bottom: 12px;">📊 Standing Charge Breakdown</h3>
-                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">If you're paying more in standing charges, you're funding:</p>
+                    <h3 style="color: #a855f7; font-size: 1rem; margin-bottom: 12px;">📊 Standing Charge (Nil kWh)</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">What you pay even with zero usage. Higher standing charges mean you're funding:</p>
                     <ul style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px; margin-left: 20px; line-height: 1.8;">
                         <li><strong>Policy costs</strong> - government green levies & schemes</li>
                         <li><strong>Network costs</strong> - maintaining pipes & wires to your home</li>
                         <li><strong>Metering</strong> - smart meter rollout & readings</li>
                         <li><strong>Supplier costs</strong> - billing, customer service, bad debt</li>
                     </ul>
+                    <p style="color: #64748b; font-size: 0.8rem; margin-top: 12px;">💡 Standing charges vary by region due to different network costs (DNO areas).</p>
                 </div>
                 <div style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 12px; padding: 20px;">
-                    <h3 style="color: #ec4899; font-size: 1rem; margin-bottom: 12px;">⚡ Unit Rate Breakdown</h3>
-                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">If you're paying more per kWh, you're funding:</p>
+                    <h3 style="color: #ec4899; font-size: 1rem; margin-bottom: 12px;">⚡ Unit Rate (per kWh)</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6;">What you pay per kWh consumed. Higher unit rates mean you're funding more:</p>
                     <ul style="color: #cbd5e1; font-size: 0.85rem; margin-top: 10px; margin-left: 20px; line-height: 1.8;">
                         <li><strong>Wholesale costs</strong> - actual cost of gas & electricity</li>
                         <li><strong>Balancing costs</strong> - keeping the grid stable</li>
                         <li><strong>Losses</strong> - energy lost in transmission</li>
                         <li><strong>Supplier margin</strong> - their profit (typically 1-2%)</li>
                     </ul>
+                    <p style="color: #64748b; font-size: 0.8rem; margin-top: 12px;">💡 Low users benefit from low standing charges. High users benefit from low unit rates.</p>
                 </div>
             </div>
         </div>
@@ -555,13 +561,38 @@
             'scottish_power': { name: 'Scottish Power', color: '#0066b3', rating: 3.9, green: true, greenNote: '100% renewable' }
         };
 
-        // Price cap rates (approximate)
+        // Price cap totals (based on typical usage 2700 kWh elec + 11500 kWh gas)
         const priceCap = {
-            elecUnit: 24.5,
-            elecStanding: 53.65,
-            gasUnit: 6.24,
-            gasStanding: 32.41
+            directDebit: { current: 1755, jan2026: 1758 },
+            standardCredit: { current: 1890, jan2026: 1894 },
+            prepayment: { current: 1707, jan2026: 1711 }
         };
+        
+        // Regional electricity-only cap data (Jan 2026, inc 5% VAT)
+        // Nil kWh = standing charges only, benchmark = total at typical usage
+        const elecCapByRegion = {
+            'North West': { standing: 190.62, benchmark: 958.69 },
+            'North East': { standing: 222.41, benchmark: 944.58 },
+            'Yorkshire': { standing: 217.97, benchmark: 938.53 },
+            'North Scotland': { standing: 226.54, benchmark: 992.31 },
+            'Southern': { standing: 166.81, benchmark: 918.14 },
+            'South Scotland': { standing: 210.32, benchmark: 944.22 },
+            'North Wales & Merseyside': { standing: 259.19, benchmark: 1044.60 },
+            'London': { standing: 171.95, benchmark: 900.91 },
+            'South East': { standing: 177.62, benchmark: 940.87 },
+            'Eastern': { standing: 180.05, benchmark: 932.91 },
+            'East Midlands': { standing: 183.12, benchmark: 909.11 },
+            'West Midlands': { standing: 197.40, benchmark: 926.08 },
+            'South West': { standing: 201.14, benchmark: 961.43 },
+            'South Wales': { standing: 192.54, benchmark: 953.43 }
+        };
+        
+        // Use Jan 2026 cap as the comparison baseline
+        let currentCapMethod = 'directDebit';
+
+        function getCapCost() {
+            return priceCap[currentCapMethod].jan2026;
+        }
 
         async function loadData() {
             try {
@@ -603,17 +634,25 @@
             return total;
         }
 
-        function calculateCapCost(elecKwh, gasKwh, fuelType) {
-            let total = 0;
-            if (fuelType === 'dual' || fuelType === 'elec') {
-                total += (priceCap.elecStanding / 100) * 365;
-                total += (priceCap.elecUnit / 100) * elecKwh;
+        function calculateCapCost(elecKwh, gasKwh, fuelType, region) {
+            const typicalElec = 2700;
+            const typicalGas = 11500;
+            
+            if (fuelType === 'elec') {
+                // Use regional electricity cap data
+                const regionData = elecCapByRegion[region] || elecCapByRegion['London'];
+                const standingCost = regionData.standing; // Fixed regardless of usage
+                const usageCost = regionData.benchmark - regionData.standing; // Unit cost portion at typical usage
+                const scaledUsage = usageCost * (elecKwh / typicalElec);
+                return standingCost + scaledUsage;
+            } else {
+                // Dual fuel - use overall cap and scale
+                const baseCap = getCapCost();
+                // Roughly 40% elec, 60% gas based on typical usage
+                const elecPortion = baseCap * 0.4 * (elecKwh / typicalElec);
+                const gasPortion = baseCap * 0.6 * (gasKwh / typicalGas);
+                return elecPortion + gasPortion;
             }
-            if (fuelType === 'dual') {
-                total += (priceCap.gasStanding / 100) * 365;
-                total += (priceCap.gasUnit / 100) * gasKwh;
-            }
-            return total;
         }
 
         function isElecOnly(tariff) {
@@ -649,14 +688,14 @@
 
         function render() {
             const region = document.getElementById('region').value;
-            const elecUsage = parseInt(document.getElementById('elecUsage').value) || 2900;
-            const gasUsage = parseInt(document.getElementById('gasUsage').value) || 12000;
+            const elecUsage = parseInt(document.getElementById('elecUsage').value) || 2700;
+            const gasUsage = parseInt(document.getElementById('gasUsage').value) || 11500;
             const fuelType = document.getElementById('fuelType').value;
 
             document.getElementById('regionDisplay').textContent = region;
 
             // Calculate cap cost
-            const capCost = calculateCapCost(elecUsage, gasUsage, fuelType);
+            const capCost = calculateCapCost(elecUsage, gasUsage, fuelType, region);
 
             // Filter and calculate
             let filtered = tariffData.tariffs
@@ -664,7 +703,7 @@
                 .filter(t => {
                     // Remove standard variable tariffs - we only want deals that beat the cap
                     const name = (t.tariff_name || '').toLowerCase();
-                    if (name.includes('variable') || name.includes('svt') || name.includes('standard') || name === '') return false;
+                    if (name.includes('variable') || name.includes('svt')) return false;
                     return true;
                 })
                 .map(t => ({
@@ -683,11 +722,17 @@
                 .sort((a, b) => a.annualCost - b.annualCost);
 
             // Update stats
+            document.getElementById('capPrice').textContent = `£${Math.round(capCost)}`;
+            const shortRegion = region.length > 12 ? region.substring(0, 10) + '...' : region;
+            document.getElementById('capLabel').textContent = fuelType === 'elec' ? `Elec Cap (${shortRegion})` : "Price Cap (Jan '26)";
+            document.getElementById('tariffCount').textContent = filtered.length;
+            
             if (filtered.length > 0) {
                 document.getElementById('bestPrice').textContent = `£${Math.round(filtered[0].annualCost)}`;
-                document.getElementById('capPrice').textContent = `£${Math.round(capCost)}`;
                 document.getElementById('savingsAmount').textContent = `£${Math.round(filtered[0].savings)}/yr`;
-                document.getElementById('tariffCount').textContent = filtered.length;
+            } else {
+                document.getElementById('bestPrice').textContent = '-';
+                document.getElementById('savingsAmount').textContent = '-';
             }
 
             // Update chart
