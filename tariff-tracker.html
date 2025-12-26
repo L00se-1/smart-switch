@@ -646,6 +646,28 @@
         function isElecOnly(tariff) {
             return !tariff.gas_unit_rate_p || !tariff.gas_standing_p;
         }
+        
+        function isValidTariff(tariff, fuelType) {
+            // Must have tariff name
+            if (!tariff.tariff_name || tariff.tariff_name.trim() === '') return false;
+            
+            // Must not have error
+            if (tariff.error) return false;
+            
+            // For elec-only or dual fuel, must have elec rates
+            if (fuelType === 'elec' || fuelType === 'dual') {
+                if (!tariff.elec_unit_rate_p || !tariff.elec_standing_p) return false;
+                if (tariff.elec_unit_rate_p <= 0 || tariff.elec_standing_p <= 0) return false;
+            }
+            
+            // For dual fuel, must have gas rates
+            if (fuelType === 'dual') {
+                if (!tariff.gas_unit_rate_p || !tariff.gas_standing_p) return false;
+                if (tariff.gas_unit_rate_p <= 0 || tariff.gas_standing_p <= 0) return false;
+            }
+            
+            return true;
+        }
 
         function getExitFee(tariff) {
             if (!tariff.exit_fee_gbp) return '£0';
@@ -687,11 +709,11 @@
 
             // Filter and calculate
             let filtered = tariffData.tariffs
-                .filter(t => t.region === region && !t.error)
+                .filter(t => t.region === region)
+                .filter(t => isValidTariff(t, fuelType))  // Validate complete data first
                 .filter(t => {
                     // Remove SVT and standard tariffs - we only want fixed deals that beat the cap
                     const name = (t.tariff_name || '').toLowerCase().trim();
-                    if (!name) return false; // No tariff name = likely SVT
                     if (name.includes('variable') || name.includes('svt') || name.includes('standard')) return false;
                     return true;
                 })
