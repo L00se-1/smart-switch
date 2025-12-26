@@ -689,9 +689,9 @@
             let filtered = tariffData.tariffs
                 .filter(t => t.region === region && !t.error)
                 .filter(t => {
-                    // Remove standard variable tariffs - we only want deals that beat the cap
+                    // Remove SVT and standard tariffs - we only want fixed deals that beat the cap
                     const name = (t.tariff_name || '').toLowerCase();
-                    if (name.includes('variable') || name.includes('svt')) return false;
+                    if (name.includes('variable') || name.includes('svt') || name.includes('standard')) return false;
                     return true;
                 })
                 .map(t => ({
