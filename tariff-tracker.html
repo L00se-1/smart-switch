@@ -690,7 +690,8 @@
                 .filter(t => t.region === region && !t.error)
                 .filter(t => {
                     // Remove SVT and standard tariffs - we only want fixed deals that beat the cap
-                    const name = (t.tariff_name || '').toLowerCase();
+                    const name = (t.tariff_name || '').toLowerCase().trim();
+                    if (!name) return false; // No tariff name = likely SVT
                     if (name.includes('variable') || name.includes('svt') || name.includes('standard')) return false;
                     return true;
                 })
