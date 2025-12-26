@@ -436,19 +436,31 @@
 
         // Load JSON data
         async function loadTariffData() {
-            try {
-                // Try loading from same directory (GitHub Pages)
-                const response = await fetch('all_tariffs.json');
-                if (response.ok) {
-                    rawData = await response.json();
-                    console.log(`Loaded ${rawData.tariffs.length} tariffs`);
-                } else {
-                    throw new Error('Could not load tariff data');
+            // Try multiple paths (works on Vercel, GitHub Pages, local)
+            const paths = [
+                './all_tariffs.json',
+                '/all_tariffs.json',
+                'all_tariffs.json'
+            ];
+            
+            let loaded = false;
+            for (const path of paths) {
+                try {
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        rawData = await response.json();
+                        console.log(`Loaded ${rawData.tariffs.length} tariffs from ${path}`);
+                        loaded = true;
+                        break;
+                    }
+                } catch (e) {
+                    console.log(`Failed to load from ${path}`);
                 }
-            } catch (e) {
-                console.error('Error loading data:', e);
+            }
+            
+            if (!loaded) {
                 document.getElementById('tariffsGrid').innerHTML = 
-                    '<div class="error-message">Could not load tariff data. Make sure all_tariffs.json is in the same folder.</div>';
+                    '<div class="error-message">Could not load tariff data. Check that all_tariffs.json exists in your repo root.</div>';
                 return;
             }
             
