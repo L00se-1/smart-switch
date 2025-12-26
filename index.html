@@ -1112,7 +1112,8 @@ async function loadDynamicSavings() {
       t.elec_unit_rate_p && t.elec_standing_p &&
       t.gas_unit_rate_p && t.gas_standing_p &&
       !(t.tariff_name || '').toLowerCase().includes('variable') &&
-      !(t.tariff_name || '').toLowerCase().includes('svt')
+      !(t.tariff_name || '').toLowerCase().includes('svt') &&
+      !(t.tariff_name || '').toLowerCase().includes('standard')
     );
     
     let cheapestCost = Infinity;
