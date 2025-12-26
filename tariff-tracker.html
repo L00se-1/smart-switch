@@ -808,8 +808,9 @@
             
             const labels = tariffs.map(t => {
                 const supplier = supplierInfo[t.supplier]?.name || t.supplier;
-                const name = t.tariff_name || supplier;
-                return name.length > 20 ? name.substring(0, 17) + '...' : name;
+                const tariffName = t.tariff_name || 'Standard';
+                const full = supplier + ' - ' + tariffName;
+                return full.length > 28 ? full.substring(0, 25) + '...' : full;
             });
             
             const data = tariffs.map(t => Math.round(t.annualCost));
