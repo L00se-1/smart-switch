@@ -258,7 +258,7 @@ def save_combined_results(results):
     print(f"\n✓ Saved: {json_file}")
     
     # Also save a simple version for website
-    simple_file = "all_tariffs_latest.json"
+    simple_file = "all_tariffs.json"
     with open(simple_file, "w") as f:
         json.dump(output_data, f, indent=2)
     print(f"✓ Saved: {simple_file} (for website)")
