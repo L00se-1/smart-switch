@@ -1,0 +1,29 @@
+name: Combine Tariffs
+on:
+  workflow_dispatch:
+
+jobs:
+  combine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Combine all tariff files
+      run: |
+        python run_all_scrapers.py --combine-only
+    
+    - name: Commit and push results
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add all_tariffs.json tariff_data_latest.json
+        git diff --staged --quiet || git commit -m "Combined tariffs: $(date +'%Y-%m-%d %H:%M')"
+        git push || echo "Nothing to push"
