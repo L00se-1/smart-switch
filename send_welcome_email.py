@@ -11,7 +11,7 @@ def send_welcome_email(to_email):
     password = os.getenv('MICROSOFT_PASSWORD')
     
     msg = MIMEMultipart('alternative')
-    msg['From'] = f"SwitchPilot Team <{sender_email}>"
+    msg['From'] = f"SwitchPilot Flight Crew <flightcrew@switch-pilot.com>"
     msg['To'] = to_email
     msg['Subject'] = "Welcome to the SwitchPilot Flight Crew! ✈️⚡"
     
