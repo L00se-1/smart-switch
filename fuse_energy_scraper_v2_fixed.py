@@ -782,6 +782,8 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
     """Main runner."""
     
     results = []
+    consecutive_failures = 0  # Track consecutive failures for early abort
+    early_abort = False
     
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES.items() if v == test_postcode}
@@ -813,6 +815,20 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
             result = scrape_with_retry(browser, postcode, region)
             results.append(result)
             
+            # Track success/failure
+            if result.get('tariffs'):
+                consecutive_failures = 0  # Reset on success
+            else:
+                consecutive_failures += 1
+            
+            # EARLY ABORT: If first 3 regions all fail, scraper is broken
+            if consecutive_failures >= 3 and len(results) <= 4:
+                print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
+                print(f"  → Scraper appears broken on this environment")
+                print(f"  → Run manually on local machine")
+                early_abort = True
+                break
+            
             # Save partial
             with open("fuse_tariffs_partial.json", "w") as f:
                 json.dump(results, f, indent=2)
@@ -824,6 +840,9 @@ def run_scraper(headless: bool = False, test_postcode: str = None):
                 time.sleep(wait)
         
         browser.close()
+    
+    if early_abort:
+        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
     
     return results
 
