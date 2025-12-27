@@ -366,33 +366,64 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
             
             print(f"    ✓ Opened dropdown")
             
-            # Navigate to address using keyboard
-            page.keyboard.press("Home")
-            time.sleep(0.3)
-            for _ in range(current_idx):
-                page.keyboard.press("ArrowDown")
-                time.sleep(0.2)
-            page.keyboard.press("Enter")
-            time.sleep(1)
-            
-            # CRITICAL: Force trigger change event so form recognizes selection
+            # Use JavaScript to directly select the address by index
+            # This is more reliable than keyboard navigation across different environments
             try:
-                page.evaluate("""
+                selection_worked = page.evaluate(f"""
+                    () => {{
+                        const selects = document.querySelectorAll('select');
+                        for (const select of selects) {{
+                            if (select.options && select.options.length > {current_idx}) {{
+                                select.selectedIndex = {current_idx};
+                                // Trigger all the events that would happen on real selection
+                                select.dispatchEvent(new Event('change', {{ bubbles: true }}));
+                                select.dispatchEvent(new Event('input', {{ bubbles: true }}));
+                                select.dispatchEvent(new Event('blur', {{ bubbles: true }}));
+                                return select.value !== '' && select.value !== null;
+                            }}
+                        }}
+                        return false;
+                    }}
+                """)
+                
+                if not selection_worked:
+                    print(f"    ⚠ JavaScript selection failed")
+                    current_idx += 1
+                    reset_and_search(page, postcode)
+                    continue
+                    
+                print(f"    ✓ Selected address #{current_idx} via JavaScript")
+            except Exception as e:
+                print(f"    ✗ JavaScript selection error: {e}")
+                current_idx += 1
+                reset_and_search(page, postcode)
+                continue
+            
+            time.sleep(3)  # Wait for form to process
+            
+            print(f"    ✓ Selected address #{current_idx}")
+            
+            # VERIFY: Check that the select actually has a value now
+            try:
+                select_value = page.evaluate("""
                     () => {
                         const selects = document.querySelectorAll('select');
-                        selects.forEach(select => {
-                            const event = new Event('change', { bubbles: true });
-                            select.dispatchEvent(event);
-                        });
+                        for (const select of selects) {
+                            if (select.value) return select.value;
+                        }
+                        return null;
                     }
                 """)
-                print(f"    ✓ Triggered change event")
+                print(f"    [DEBUG] Select value after selection: {select_value}")
+                
+                if not select_value:
+                    print(f"    ⚠ Select value is still empty - trying next address")
+                    current_idx += 1
+                    reset_and_search(page, postcode)
+                    continue
             except:
                 pass
             
-            time.sleep(3)  # Increased wait for form to process
-            
-            print(f"    ✓ Selected address #{current_idx}")
             page.screenshot(path=f"screenshots/edf_{region.replace(' ', '_')}_addr_{current_idx}.png")
             
             # CHECK FOR PROBLEMS BEFORE CONTINUE
@@ -420,14 +451,49 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
                 reset_and_search(page, postcode)
                 continue
             
-            # CLICK CONTINUE
+            # CLICK CONTINUE - Try multiple methods to ensure it works
             print(f"\n  [STEP 5] Clicking Continue...")
             try:
                 remove_onetrust_overlay(page)  # Remove overlay before click
-                page.click('button:has-text("Continue")', timeout=5000)
-                print(f"    ✓ Clicked Continue")
-            except:
-                print(f"    ✗ No Continue button")
+                
+                # Method 1: Try regular click first
+                try:
+                    page.click('button:has-text("Continue")', timeout=3000)
+                    print(f"    ✓ Clicked Continue (regular)")
+                except:
+                    # Method 2: Use JavaScript to click if regular click fails
+                    page.evaluate("""
+                        () => {
+                            const buttons = Array.from(document.querySelectorAll('button'));
+                            const continueBtn = buttons.find(b => b.textContent.includes('Continue'));
+                            if (continueBtn) {
+                                continueBtn.click();
+                                return true;
+                            }
+                            return false;
+                        }
+                    """)
+                    print(f"    ✓ Clicked Continue (JavaScript)")
+                    
+                time.sleep(1)
+                
+                # Method 3: If still on same page, try submitting the form directly
+                current_url_before = page.url
+                time.sleep(2)
+                if page.url == current_url_before:
+                    print(f"    ⚠ Page didn't change, trying form submit...")
+                    page.evaluate("""
+                        () => {
+                            const forms = document.querySelectorAll('form');
+                            if (forms.length > 0) {
+                                forms[0].submit();
+                            }
+                        }
+                    """)
+                    time.sleep(2)
+                    
+            except Exception as e:
+                print(f"    ✗ Continue button error: {e}")
                 current_idx += 1
                 reset_and_search(page, postcode)
                 continue
