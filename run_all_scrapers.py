@@ -30,45 +30,48 @@ SCRAPERS = {
         "script": "eon_next_scraper_v5.py",
         "output_pattern": "eon_tariffs_*.json",
         "supplier_name": "eon_next",
-        "is_api": False,  # Web scraper - needs retry logic
+        "is_api": False,
     },
     "bg": {
         "script": "bg_scraper_v10.py",
         "output_pattern": "bg_tariffs_*.json",
         "supplier_name": "british_gas",
-        "is_api": False,  # Web scraper - needs retry logic
+        "is_api": False,
     },
     "ovo": {
         "script": "ovo_scraper_v1.py",
         "output_pattern": "ovo_tariffs_*.json",
         "supplier_name": "ovo",
-        "is_api": False,  # Web scraper - needs retry logic
+        "is_api": False,
     },
     "octopus": {
         "script": "octopus_api_v1.py",
         "output_pattern": "octopus_tariffs_*.json",
         "supplier_name": "octopus",
-        "is_api": True,  # API-based - no retry needed
+        "is_api": True,
     },
     "sp": {
         "script": "scottish_power_scraper_v2.py",
         "output_pattern": "sp_tariffs_*.json",
         "supplier_name": "scottish_power",
-        "is_api": False,  # Web scraper - needs retry logic
+        "is_api": False,
     },
     "edf": {
         "script": "edf_scraper_v5_fixed.py",
         "output_pattern": "edf_tariffs_*.json",
         "supplier_name": "edf",
-        "is_api": False,  # Web scraper - needs retry logic
+        "is_api": False,
     },
     "fuse": {
         "script": "fuse_energy_scraper_v2_fixed.py",
         "output_pattern": "fuse_tariffs_*.json",
-        "supplier_name": "fuse",
-        "is_api": False,  # Web scraper - needs retry logic
+        "supplier_name": "fuse_energy",
+        "is_api": False,
     },
 }
+
+# Retry threshold - only retry if success rate > this percentage
+RETRY_THRESHOLD = 0.5  # 50% = 7/14 regions must succeed to bother retrying
 
 # Unified output fields
 OUTPUT_FIELDS = [
@@ -114,16 +117,14 @@ def run_scraper(name, config):
     print('='*60)
     
     try:
-        # Run the scraper
         cmd = [sys.executable, script]
         
-        # Add headless flag for browser-based scrapers (not APIs)
         if not config.get("is_api", False):
             cmd.append("--headless")
         
         result = subprocess.run(
             cmd,
-            capture_output=False,  # Show output in real-time
+            capture_output=False,
             text=True
         )
         return result.returncode == 0
@@ -148,10 +149,8 @@ def load_scraper_results(config):
         with open(latest_file, "r") as f:
             data = json.load(f)
         
-        # Normalize the data
         normalized = []
         for r in data:
-            # Ensure supplier field exists
             if "supplier" not in r:
                 r["supplier"] = supplier
             
@@ -175,7 +174,6 @@ def load_scraper_results(config):
                     }
                     normalized.append(row)
             else:
-                # Failed scrape
                 normalized.append({
                     "supplier": r.get("supplier", supplier),
                     "region": r.get("region", ""),
@@ -221,169 +219,91 @@ def combine_results(scrapers_to_run):
 
 def check_incomplete_data(r):
     """Check if a result has incomplete data. Returns reason string or None if OK."""
-    # Check for error
     if r.get("error"):
         return f"error: {r.get('error')}"
     
-    # Check for missing tariff name
     if not r.get("tariff_name"):
-        return "missing tariff name"
+        return "missing tariff_name"
     
-    # Check for missing crucial rates (need at least elec OR gas unit rate)
-    has_elec = r.get("elec_unit_rate_p") is not None
-    has_gas = r.get("gas_unit_rate_p") is not None
+    if not r.get("elec_unit_rate_p") and not r.get("elec_day_rate_p"):
+        return "missing elec rates"
     
-    if not has_elec and not has_gas:
-        return "missing unit rates"
+    if not r.get("elec_standing_p"):
+        return "missing elec_standing_p"
     
-    # Check for missing standing charges
-    has_elec_standing = r.get("elec_standing_p") is not None
-    has_gas_standing = r.get("gas_standing_p") is not None
+    tariff_name = (r.get("tariff_name") or "").lower()
+    is_elec_only = "electric" in tariff_name or "elec only" in tariff_name
     
-    if not has_elec_standing and not has_gas_standing:
-        return "missing standing charges"
+    if not is_elec_only:
+        if not r.get("gas_unit_rate_p"):
+            return "missing gas_unit_rate_p"
+        if not r.get("gas_standing_p"):
+            return "missing gas_standing_p"
     
-    return None  # Data is complete
+    return None
 
 
 def save_combined_results(results):
     """Save combined results to JSON and CSV."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    # JSON for web use - always overwrite all_tariffs.json
-    json_file = "all_tariffs.json"
-    output_data = {
-        "last_updated": datetime.now().isoformat(),
-        "total_records": len(results),
-        "suppliers": list(set(r["supplier"] for r in results if r.get("supplier"))),
-        "tariffs": results
-    }
+    tracker_data = {"tariffs": results, "updated": datetime.now().isoformat()}
     
-    with open(json_file, "w") as f:
-        json.dump(output_data, f, indent=2)
-    print(f"\n✓ Saved: {json_file}")
+    with open("all_tariffs.json", "w") as f:
+        json.dump(tracker_data, f, indent=2)
+    print(f"\n  ✓ Saved: all_tariffs.json")
     
-    # =====================================================
-    # WEBSITE FORMAT - Transform to tariff-tracker format
-    # =====================================================
-    website_tariffs = convert_to_website_format(results)
-    website_file = "tariff_data_latest.json"
-    
-    website_output = {
-        "lastUpdated": datetime.now().strftime("%d %B %Y"),
-        "tariffs": website_tariffs
-    }
-    
-    # Save as JSON file for website
-    with open(website_file, "w") as f:
-        json.dump(website_output, f, indent=2)
-    print(f"✓ Saved: {website_file} (for tariff tracker)")
-    
-    # CSV for analysis
-    csv_file = f"all_tariffs_{timestamp}.csv"
-    with open(csv_file, "w", newline="") as f:
+    with open(f"all_tariffs_{timestamp}.csv", "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=OUTPUT_FIELDS, extrasaction='ignore')
         writer.writeheader()
         writer.writerows(results)
-    print(f"✓ Saved: {csv_file}")
+    print(f"  ✓ Saved: all_tariffs_{timestamp}.csv")
     
-    # Summary
-    print(f"\n{'='*60}")
-    print("  SUMMARY")
-    print('='*60)
-    
-    # Count by supplier
-    supplier_stats = {}
-    for r in results:
-        s = r.get("supplier", "unknown")
-        if s not in supplier_stats:
-            supplier_stats[s] = {"total": 0, "success": 0}
-        supplier_stats[s]["total"] += 1
-        if r.get("tariff_name") and not r.get("error"):
-            supplier_stats[s]["success"] += 1
-    
-    for supplier, stats in supplier_stats.items():
-        pct = 100 * stats["success"] / stats["total"] if stats["total"] > 0 else 0
-        print(f"  {supplier}: {stats['success']}/{stats['total']} ({pct:.0f}%)")
-    
-    print(f"\n  TOTAL: {len(results)} records")
-    
-    return json_file, csv_file
+    summary = create_summary(results)
+    with open("tariff_data_latest.json", "w") as f:
+        json.dump(summary, f, indent=2)
+    print(f"  ✓ Saved: tariff_data_latest.json")
 
 
-def convert_to_website_format(results):
-    """Convert flat scraper results to website tariff-tracker format."""
-    
-    # Group by supplier and tariff name
+def create_summary(results):
+    """Create a summary JSON for the tariff tracker."""
     suppliers = {}
     
     for r in results:
-        if not r.get("tariff_name"):
-            continue  # Skip failed scrapes
+        if r.get("error") or not r.get("tariff_name"):
+            continue
         
-        supplier = r.get("supplier", "unknown")
-        tariff_name = r.get("tariff_name", "")
+        supplier = r.get("supplier", "")
         region = r.get("region", "")
+        tariff = r.get("tariff_name", "")
         
-        key = f"{supplier}|{tariff_name}"
+        key = f"{supplier}_{tariff}"
         
         if key not in suppliers:
-            # Determine supplier display name and logo
-            if supplier == "eon_next":
-                display_name = "E.ON Next"
-                logo = "logo-eon.png"
-            elif supplier == "british_gas":
-                display_name = "British Gas"
-                logo = "logo-bg.png"
-            elif supplier == "ovo":
-                display_name = "OVO Energy"
-                logo = "logo-ovo.png"
-            elif supplier == "octopus":
-                display_name = "Octopus Energy"
-                logo = "logo-octopus.png"
-            else:
-                display_name = supplier.replace("_", " ").title()
-                logo = f"logo-{supplier}.png"
-            
             suppliers[key] = {
-                "supplier": display_name,
-                "logo": logo,
-                "name": tariff_name,
-                "fuelTypes": ["dual", "electric", "gas"],
-                "contractLength": "12 months",  # Default
-                "exitFees": "£50 per fuel",  # Default
+                "supplier": supplier,
+                "tariffName": tariff,
                 "regions": {},
-                "pros": [],
-                "cons": []
+                "exitFees": None,
+                "contractLength": None,
             }
         
-        # Add region data
-        elec_unit = r.get("elec_unit_rate_p")
-        elec_standing = r.get("elec_standing_p")
-        gas_unit = r.get("gas_unit_rate_p")
-        gas_standing = r.get("gas_standing_p")
+        suppliers[key]["regions"][region] = {
+            "elecUnitRate": r.get("elec_unit_rate_p"),
+            "elecDayRate": r.get("elec_day_rate_p"),
+            "elecNightRate": r.get("elec_night_rate_p"),
+            "elecStanding": r.get("elec_standing_p"),
+            "gasUnitRate": r.get("gas_unit_rate_p"),
+            "gasStanding": r.get("gas_standing_p"),
+        }
         
-        # Only add if we have data
-        if elec_unit or gas_unit:
-            suppliers[key]["regions"][region] = {
-                "dd": {  # Direct debit rates only
-                    "elecSC": elec_standing or 0,
-                    "elecUnit": elec_unit or 0,
-                    "gasSC": gas_standing or 0,
-                    "gasUnit": gas_unit or 0
-                }
-            }
-        
-        # Set exit fees from scraped data - normalize to "£X per fuel"
         exit_fee = r.get("exit_fee_gbp") or r.get("exit_fee")
         supplier_name = r.get("supplier", "")
         
         if exit_fee:
-            # If already says "per fuel", keep as is
             if isinstance(exit_fee, str) and "per fuel" in exit_fee.lower():
                 suppliers[key]["exitFees"] = exit_fee
             else:
-                # Extract number
                 fee_num = None
                 if isinstance(exit_fee, str):
                     match = re.search(r'[\d.]+', exit_fee)
@@ -393,13 +313,11 @@ def convert_to_website_format(results):
                     fee_num = float(exit_fee)
                 
                 if fee_num is not None:
-                    # EDF shows total (£100 for dual fuel) - divide by 2
                     if supplier_name == "edf":
                         fee_num = fee_num / 2
                     
                     suppliers[key]["exitFees"] = f"£{int(fee_num)} per fuel"
         
-        # Set contract length from scraped data
         contract_months = r.get("contract_months")
         if contract_months:
             suppliers[key]["contractLength"] = f"{contract_months} months"
@@ -413,15 +331,27 @@ def run_scraper_thread(name, config, results_dict):
     results_dict[name] = success
 
 
+def get_supplier_success_rate(results, supplier_name):
+    """Calculate success rate for a supplier."""
+    supplier_results = [r for r in results if r.get("supplier") == supplier_name]
+    if not supplier_results:
+        return 0, 0, 0
+    
+    total = len(supplier_results)
+    successful = sum(1 for r in supplier_results if not check_incomplete_data(r))
+    
+    return successful, total, successful / total if total > 0 else 0
+
+
 def main():
     import argparse
     
     parser = argparse.ArgumentParser(description="Master Tariff Scraper")
-    parser.add_argument("--only", nargs="+", help="Only run specific scrapers (e.g. --only eon bg)")
-    parser.add_argument("--sequential", action="store_true", help="Run scrapers one at a time instead of parallel")
-    parser.add_argument("--combine-only", action="store_true", help="Only combine existing results, don't run scrapers")
-    parser.add_argument("--wait", type=int, default=300, help="Wait time between scrapers in sequential mode (seconds)")
-    parser.add_argument("--no-retry", action="store_true", help="Skip retry logic for failed regions")
+    parser.add_argument("--only", nargs="+", help="Only run specific scrapers")
+    parser.add_argument("--sequential", action="store_true", help="Run one at a time")
+    parser.add_argument("--combine-only", action="store_true", help="Only combine existing results")
+    parser.add_argument("--wait", type=int, default=300, help="Wait time between scrapers")
+    parser.add_argument("--no-retry", action="store_true", help="Skip retry logic")
     args = parser.parse_args()
     
     print("="*60)
@@ -433,32 +363,28 @@ def main():
     print(f"  Will process: {scrapers_to_run}")
     
     if args.sequential:
-        print(f"  Mode: SEQUENTIAL (one at a time, {args.wait}s between)")
+        print(f"  Mode: SEQUENTIAL ({args.wait}s between)")
     else:
-        print(f"  Mode: PARALLEL (all at same time)")
+        print(f"  Mode: PARALLEL")
     print()
     
     if not args.combine_only:
         if args.sequential:
-            # Run each scraper one at a time
             for i, name in enumerate(scrapers_to_run):
                 if name not in SCRAPERS:
                     print(f"  ⚠ Unknown scraper: {name}")
                     continue
                 
-                success = run_scraper(name, SCRAPERS[name])
+                run_scraper(name, SCRAPERS[name])
                 
-                # Wait between scrapers
                 if i < len(scrapers_to_run) - 1:
-                    print(f"\n  ⏳ Waiting {args.wait}s before next scraper...")
+                    print(f"\n  ⏳ Waiting {args.wait}s...")
                     time.sleep(args.wait)
         else:
-            # Run all scrapers in parallel
             threads = []
             results_dict = {}
             
-            print(f"\n  🚀 Starting {len(scrapers_to_run)} scrapers in parallel...")
-            print(f"  (Each will open its own browser window)\n")
+            print(f"\n  🚀 Starting {len(scrapers_to_run)} scrapers in parallel...\n")
             
             for name in scrapers_to_run:
                 if name not in SCRAPERS:
@@ -468,9 +394,8 @@ def main():
                 t = threading.Thread(target=run_scraper_thread, args=(name, SCRAPERS[name], results_dict))
                 t.start()
                 threads.append((name, t))
-                time.sleep(5)  # Small delay between starting each
+                time.sleep(5)
             
-            # Wait for all to complete
             print(f"\n  ⏳ Waiting for all scrapers to complete...")
             for name, t in threads:
                 t.join()
@@ -481,101 +406,121 @@ def main():
     results = combine_results(scrapers_to_run)
     
     # =====================================================
-    # RETRY FAILED OR INCOMPLETE REGIONS (Web scrapers only)
+    # SMART RETRY: Only retry scrapers that mostly worked
     # =====================================================
     if not args.combine_only and not args.no_retry:
-        failed = []
+        failures_by_supplier = {}
+        
         for r in results:
             supplier = r.get("supplier", "")
             
-            # Find if this supplier is API-based (skip retry for API scrapers)
             is_api = False
+            scraper_name = None
             for name, config in SCRAPERS.items():
                 if config["supplier_name"] == supplier:
                     is_api = config.get("is_api", False)
+                    scraper_name = name
                     break
             
             if is_api:
-                continue  # Skip API-based scrapers - they don't need retries
+                continue
             
-            # Check if data is incomplete
             reason = check_incomplete_data(r)
             if reason:
-                failed.append((r, reason))
+                if supplier not in failures_by_supplier:
+                    failures_by_supplier[supplier] = []
+                failures_by_supplier[supplier].append((r, reason, scraper_name))
         
-        if failed:
+        # Check each supplier's success rate
+        suppliers_to_retry = {}
+        suppliers_to_skip = []
+        
+        print(f"\n{'#'*60}")
+        print(f"  ANALYZING FAILURE RATES")
+        print('#'*60)
+        
+        for supplier, failures in failures_by_supplier.items():
+            successful, total, rate = get_supplier_success_rate(results, supplier)
+            failed_count = len(failures)
+            
+            print(f"\n  {supplier}:")
+            print(f"    Success: {successful}/{total} regions ({rate*100:.0f}%)")
+            print(f"    Failed:  {failed_count} regions")
+            
+            if rate >= RETRY_THRESHOLD:
+                print(f"    → Will retry {failed_count} failed regions")
+                suppliers_to_retry[supplier] = failures
+            else:
+                print(f"    → SKIPPING retries (below {RETRY_THRESHOLD*100:.0f}% threshold)")
+                print(f"    → Run manually and upload JSON")
+                suppliers_to_skip.append(supplier)
+        
+        # Only retry suppliers that mostly worked
+        if suppliers_to_retry:
+            total_retries = sum(len(f) for f in suppliers_to_retry.values())
             print(f"\n{'#'*60}")
-            print(f"  RETRYING {len(failed)} FAILED/INCOMPLETE REGIONS")
-            print(f"  (Skipping API-based scrapers like Octopus)")
+            print(f"  RETRYING {total_retries} REGIONS")
+            print(f"  (Skipping {len(suppliers_to_skip)} mostly-failed scrapers)")
             print('#'*60)
             
-            for r, reason in failed:
-                supplier = r.get("supplier", "")
-                region = r.get("region", "")
-                postcode = r.get("postcode", "")
+            for supplier, failures in suppliers_to_retry.items():
+                print(f"\n  📍 {supplier}: {len(failures)} regions")
                 
-                print(f"\n  Retrying: {supplier} - {region} ({postcode})")
-                print(f"    Reason: {reason}")
-                
-                # Find the right scraper
-                scraper_name = None
-                for name, config in SCRAPERS.items():
-                    if config["supplier_name"] == supplier:
-                        scraper_name = name
-                        break
-                
-                if not scraper_name:
-                    print(f"    ⚠ Unknown supplier, skipping")
-                    continue
-                
-                config = SCRAPERS[scraper_name]
-                script = config["script"]
-                
-                if not os.path.exists(script):
-                    print(f"    ⚠ Script not found: {script}")
-                    continue
-                
-                # Run single postcode test
-                try:
-                    # Build command with --headless for web scrapers
-                    cmd = [sys.executable, script, "--test", postcode, "--headless"]
-                    print(f"    Running {script} --test \"{postcode}\" --headless")
-                    subprocess.run(
-                        cmd,
-                        capture_output=False,
-                        text=True
-                    )
-                    print(f"\n    ⏳ Cooling down 60s before next retry...")
-                    time.sleep(60)  # Longer cooldown between retries
-                except Exception as e:
-                    print(f"    ✗ Error: {e}")
+                for r, reason, scraper_name in failures:
+                    region = r.get("region", "")
+                    postcode = r.get("postcode", "")
+                    
+                    print(f"\n    Retrying: {region} ({postcode})")
+                    print(f"    Reason: {reason}")
+                    
+                    if not scraper_name:
+                        print(f"    ⚠ Unknown scraper, skipping")
+                        continue
+                    
+                    config = SCRAPERS[scraper_name]
+                    script = config["script"]
+                    
+                    if not os.path.exists(script):
+                        print(f"    ⚠ Script not found: {script}")
+                        continue
+                    
+                    try:
+                        cmd = [sys.executable, script, "--test", postcode, "--headless"]
+                        print(f"    Running: {script} --test \"{postcode}\"")
+                        subprocess.run(cmd, capture_output=False, text=True)
+                        print(f"\n    ⏳ Cooling down 30s...")
+                        time.sleep(30)
+                    except Exception as e:
+                        print(f"    ✗ Error: {e}")
             
-            # Re-combine results after retries
-            print(f"\n  Re-combining results after retries...")
+            print(f"\n  Re-combining results...")
             results = combine_results(scrapers_to_run)
+        
+        if suppliers_to_skip:
+            print(f"\n{'#'*60}")
+            print(f"  ⚠ SCRAPERS THAT NEED MANUAL RUN:")
+            print('#'*60)
+            for supplier in suppliers_to_skip:
+                print(f"    - {supplier}")
+            print(f"\n  Run locally and upload JSON files.")
     
     if results:
         save_combined_results(results)
         
-        # Final data quality report
+        # Final report
         print(f"\n{'='*60}")
         print("  DATA QUALITY REPORT")
         print('='*60)
         
-        complete = 0
-        incomplete = 0
-        for r in results:
-            if check_incomplete_data(r):
-                incomplete += 1
-            else:
-                complete += 1
-        
+        complete = sum(1 for r in results if not check_incomplete_data(r))
+        incomplete = len(results) - complete
         pct = 100 * complete / len(results) if results else 0
-        print(f"  Complete records: {complete}/{len(results)} ({pct:.1f}%)")
-        print(f"  Incomplete/Failed: {incomplete}")
+        
+        print(f"  Complete: {complete}/{len(results)} ({pct:.1f}%)")
+        print(f"  Failed:   {incomplete}")
         
         if incomplete > 0:
-            print(f"\n  Incomplete regions by supplier:")
+            print(f"\n  Incomplete by supplier:")
             by_supplier = {}
             for r in results:
                 reason = check_incomplete_data(r)
@@ -583,18 +528,12 @@ def main():
                     s = r.get("supplier", "unknown")
                     if s not in by_supplier:
                         by_supplier[s] = []
-                    by_supplier[s].append(f"{r.get('region')} ({reason})")
+                    by_supplier[s].append(f"{r.get('region')}")
             
             for s, regions in by_supplier.items():
-                print(f"    {s}:")
-                for region in regions[:5]:  # Show first 5
-                    print(f"      - {region}")
-                if len(regions) > 5:
-                    print(f"      ... and {len(regions) - 5} more")
+                print(f"    {s}: {len(regions)} regions")
     else:
-        print("\n  ⚠ No results to combine!")
-    
-    # input("\nPress Enter to exit...")  # Disabled for automated runs
+        print("\n  ⚠ No results!")
 
 
 if __name__ == "__main__":
