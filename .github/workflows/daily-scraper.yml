@@ -27,7 +27,7 @@ jobs:
     
     - name: Run daily scrapers
       run: |
-        python run_all_scrapers.py --only octopus bg eon
+        python run_all_scrapers.py
       continue-on-error: true
     
     - name: Commit and push results
