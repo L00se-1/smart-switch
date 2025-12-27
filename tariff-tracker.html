@@ -558,7 +558,8 @@
             'eon_next': { name: 'E.ON Next', color: '#e4002b', rating: 4.2, green: true, greenNote: '100% renewable' },
             'british_gas': { name: 'British Gas', color: '#0066cc', rating: 3.8, green: false, greenNote: 'Standard mix' },
             'ovo': { name: 'OVO Energy', color: '#00dc64', rating: 4.3, green: true, greenNote: '100% renewable' },
-            'scottish_power': { name: 'Scottish Power', color: '#0066b3', rating: 3.9, green: true, greenNote: '100% renewable' }
+            'scottish_power': { name: 'Scottish Power', color: '#0066b3', rating: 3.9, green: true, greenNote: '100% renewable' },
+            'fuse_energy': { name: 'Fuse Energy', color: '#a855f7', rating: 4.0, green: false, greenNote: 'Standard mix' }
         };
 
         // Ofgem Price Cap rates by region (Jan-Mar 2026, Direct Debit, inc VAT)
@@ -762,6 +763,12 @@
                 const pros = getPros(tariff, tariff.savings, supplier);
                 const cons = getCons(tariff, tariff.savings, supplier);
                 
+                // Fix tariff name if it's the same as supplier (data bug)
+                let displayTariffName = tariff.tariff_name || supplier.name + ' Standard';
+                if (displayTariffName === tariff.supplier || displayTariffName === supplier.name) {
+                    displayTariffName = 'Standard Tariff';
+                }
+                
                 return `
                     <div class="tariff-card ${index === 0 ? 'best' : ''}">
                         ${index === 0 ? '<div class="best-badge">🏆 Best Deal</div>' : ''}
@@ -770,7 +777,7 @@
                         <div class="supplier-header">
                             <div>
                                 <div class="supplier-name" style="color: ${supplier.color}">${supplier.name}</div>
-                                <div class="tariff-name">${tariff.tariff_name || supplier.name + ' Standard'}</div>
+                                <div class="tariff-name">${displayTariffName}</div>
                             </div>
                             <div class="annual-cost">
                                 <div class="cost-amount">£${Math.round(tariff.annualCost)}</div>
