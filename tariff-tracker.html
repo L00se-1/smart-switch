@@ -549,7 +549,7 @@
     </div>
 
     <script>
-        let tariffData = { tariffs: [], last_updated: null };
+        let tariffData = { tariffs: [], updated: null };
         let chart = null;
 
         // Supplier info
@@ -589,8 +589,8 @@
                 if (!response.ok) throw new Error('Failed to load');
                 tariffData = await response.json();
                 
-                if (tariffData.last_updated) {
-                    const date = new Date(tariffData.last_updated);
+                if (tariffData.updated) {
+                    const date = new Date(tariffData.updated);
                     document.getElementById('lastUpdated').textContent = date.toLocaleDateString('en-GB', {
                         day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
                     });
