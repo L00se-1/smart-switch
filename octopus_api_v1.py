@@ -367,7 +367,13 @@ def save_results(results):
     for name, region_data in tariffs_by_name.items():
         # Show first region's data as example
         region, t = region_data[0]
-        print(f"{name[:34]:<35} {len(region_data):<10} {t.get('elec_unit_rate_p', 'N/A'):<12} {t.get('elec_standing_p', 'N/A'):<10} {t.get('gas_unit_rate_p', 'N/A'):<12} {t.get('gas_standing_p', 'N/A'):<10} {t.get('exit_fee', 'N/A'):<15}")
+        # Convert None to 'N/A' string for formatting
+        elec_unit = t.get('elec_unit_rate_p') or 'N/A'
+        elec_sc = t.get('elec_standing_p') or 'N/A'
+        gas_unit = t.get('gas_unit_rate_p') or 'N/A'
+        gas_sc = t.get('gas_standing_p') or 'N/A'
+        exit_fee = t.get('exit_fee', 'N/A')
+        print(f"{name[:34]:<35} {len(region_data):<10} {str(elec_unit):<12} {str(elec_sc):<10} {str(gas_unit):<12} {str(gas_sc):<10} {str(exit_fee):<15}")
     
     print(f"\nTotal records: {len(results)}")
     print(f"Unique tariffs: {len(tariffs_by_name)}")
