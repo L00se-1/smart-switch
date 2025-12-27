@@ -2,6 +2,382 @@
   "lastUpdated": "27 December 2025",
   "tariffs": [
     {
+      "supplier": "E.ON Next",
+      "logo": "logo-eon.png",
+      "name": "Next Fixed 18m v26",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a350 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 40.43,
+            "elecUnit": 25.61,
+            "gasSC": 33.67,
+            "gasUnit": 5.09
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 41.27,
+            "elecUnit": 24.78,
+            "gasSC": 33.75,
+            "gasUnit": 5.04
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 38.22,
+            "elecUnit": 24.79,
+            "gasSC": 34.57,
+            "gasUnit": 5.29
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 65.76,
+            "elecUnit": 25.92,
+            "gasSC": 34.43,
+            "gasUnit": 5.27
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 45.26,
+            "elecUnit": 24.84,
+            "gasSC": 34.05,
+            "gasUnit": 5.1
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 52.14,
+            "elecUnit": 24.9,
+            "gasSC": 34.15,
+            "gasUnit": 5.14
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 43.31,
+            "elecUnit": 25.28,
+            "gasSC": 34.17,
+            "gasUnit": 5.14
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 39.74,
+            "elecUnit": 26.1,
+            "gasSC": 33.6,
+            "gasUnit": 5.13
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 36.75,
+            "elecUnit": 25.61,
+            "gasSC": 33.48,
+            "gasUnit": 5.23
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 43.89,
+            "elecUnit": 26.1,
+            "gasSC": 34.3,
+            "gasUnit": 5.3
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 46.31,
+            "elecUnit": 26.25,
+            "gasSC": 33.64,
+            "gasUnit": 5.36
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 52.14,
+            "elecUnit": 24.9,
+            "gasSC": 34.15,
+            "gasUnit": 5.14
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 57.07,
+            "elecUnit": 25.31,
+            "gasSC": 34.22,
+            "gasUnit": 5.09
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "British Gas",
+      "logo": "logo-bg.png",
+      "name": "Fixed Tariff Dec26 v3",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a350 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 47.018,
+            "elecUnit": 25.9,
+            "gasSC": 32.436,
+            "gasUnit": 5.434
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 47.852,
+            "elecUnit": 24.925,
+            "gasSC": 32.52,
+            "gasUnit": 5.406
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 44.823,
+            "elecUnit": 25.002,
+            "gasSC": 33.339,
+            "gasUnit": 5.645
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 68.714,
+            "elecUnit": 27.093,
+            "gasSC": 33.201,
+            "gasUnit": 5.687
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 51.768,
+            "elecUnit": 25.015,
+            "gasSC": 32.822,
+            "gasUnit": 5.455
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 58.632,
+            "elecUnit": 24.799,
+            "gasSC": 32.914,
+            "gasUnit": 5.565
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 49.924,
+            "elecUnit": 26.48,
+            "gasSC": 32.942,
+            "gasUnit": 5.275
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 46.362,
+            "elecUnit": 26.29,
+            "gasSC": 32.37,
+            "gasUnit": 5.474
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 43.391,
+            "elecUnit": 25.846,
+            "gasSC": 32.249,
+            "gasUnit": 5.562
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 50.456,
+            "elecUnit": 26.205,
+            "gasSC": 33.069,
+            "gasUnit": 5.689
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 52.8,
+            "elecUnit": 26.194,
+            "gasSC": 32.41,
+            "gasUnit": 5.78
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 58.632,
+            "elecUnit": 24.799,
+            "gasSC": 32.914,
+            "gasUnit": 5.565
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 59.765,
+            "elecUnit": 26.427,
+            "gasSC": 32.983,
+            "gasUnit": 5.41
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 55.318,
+            "elecUnit": 25.205,
+            "gasSC": 33.012,
+            "gasUnit": 5.595
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "OVO Energy",
+      "logo": "logo-ovo.png",
+      "name": "1 Year Fixed",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a350 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 55.65,
+            "elecUnit": 26.9,
+            "gasSC": 28.04,
+            "gasUnit": 6.01
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 56.07,
+            "elecUnit": 25.95,
+            "gasSC": 27.49,
+            "gasUnit": 5.93
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 51.32,
+            "elecUnit": 26.05,
+            "gasSC": 30.4,
+            "gasUnit": 6.18
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 75.22,
+            "elecUnit": 28.14,
+            "gasSC": 30.26,
+            "gasUnit": 6.1
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 60.83,
+            "elecUnit": 26.01,
+            "gasSC": 27.94,
+            "gasUnit": 6.0
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 66.83,
+            "elecUnit": 25.8,
+            "gasSC": 27.88,
+            "gasUnit": 6.08
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 55.43,
+            "elecUnit": 28.63,
+            "gasSC": 31.03,
+            "gasUnit": 20.76
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 55.83,
+            "elecUnit": 27.22,
+            "gasSC": 27.34,
+            "gasUnit": 5.97
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 51.98,
+            "elecUnit": 26.88,
+            "gasSC": 28.28,
+            "gasUnit": 6.13
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 59.28,
+            "elecUnit": 27.22,
+            "gasSC": 27.5,
+            "gasUnit": 6.26
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 61.01,
+            "elecUnit": 27.22,
+            "gasSC": 28.42,
+            "gasUnit": 6.27
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 66.83,
+            "elecUnit": 25.8,
+            "gasSC": 27.88,
+            "gasUnit": 6.08
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 65.24,
+            "elecUnit": 27.52,
+            "gasSC": 31.1,
+            "gasUnit": 6.02
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 64.79,
+            "elecUnit": 26.13,
+            "gasSC": 27.97,
+            "gasUnit": 6.04
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
       "supplier": "Octopus Energy",
       "logo": "logo-octopus.png",
       "name": "Agile Octopus",
@@ -1531,6 +1907,254 @@
             "elecUnit": 8.99997,
             "gasSC": 0,
             "gasUnit": 0
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Scottish Power",
+      "logo": "logo-scottish_power.png",
+      "name": "1 Year Fixed Price",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a350 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 49.33,
+            "elecUnit": 27.439,
+            "gasSC": 34.73,
+            "gasUnit": 5.5
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 50.17,
+            "elecUnit": 26.444,
+            "gasSC": 34.82,
+            "gasUnit": 5.424
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 71.01,
+            "elecUnit": 28.645,
+            "gasSC": 35.48,
+            "gasUnit": 5.576
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 54.08,
+            "elecUnit": 26.543,
+            "gasSC": 35.11,
+            "gasUnit": 5.487
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 60.93,
+            "elecUnit": 26.303,
+            "gasSC": 35.2,
+            "gasUnit": 5.568
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 55.47,
+            "elecUnit": 34.078,
+            "gasSC": 40.23,
+            "gasUnit": 5.422
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 48.66,
+            "elecUnit": 27.824,
+            "gasSC": 34.67,
+            "gasUnit": 5.46
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 45.7,
+            "elecUnit": 27.382,
+            "gasSC": 34.55,
+            "gasUnit": 5.635
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 56.73,
+            "elecUnit": 27.418,
+            "gasSC": 40.35,
+            "gasUnit": 5.634
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 55.1,
+            "elecUnit": 27.715,
+            "gasSC": 34.7,
+            "gasUnit": 5.781
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 60.93,
+            "elecUnit": 26.303,
+            "gasSC": 35.2,
+            "gasUnit": 5.568
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 62.06,
+            "elecUnit": 27.917,
+            "gasSC": 35.27,
+            "gasUnit": 5.523
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 61.61,
+            "elecUnit": 26.418,
+            "gasSC": 40.3,
+            "gasUnit": 5.416
+          }
+        }
+      },
+      "pros": [],
+      "cons": []
+    },
+    {
+      "supplier": "Fuse Energy",
+      "logo": "logo-fuse_energy.png",
+      "name": "Fixed (13m) v3",
+      "fuelTypes": [
+        "dual",
+        "electric",
+        "gas"
+      ],
+      "contractLength": "12 months",
+      "exitFees": "\u00a350 per fuel",
+      "regions": {
+        "Eastern": {
+          "dd": {
+            "elecSC": 41.73,
+            "elecUnit": 22.91,
+            "gasSC": 27.46,
+            "gasUnit": 5.14
+          }
+        },
+        "East Midlands": {
+          "dd": {
+            "elecSC": 42.72,
+            "elecUnit": 22.19,
+            "gasSC": 27.54,
+            "gasUnit": 5.16
+          }
+        },
+        "London": {
+          "dd": {
+            "elecSC": 39.55,
+            "elecUnit": 22.14,
+            "gasSC": 28.42,
+            "gasUnit": 5.35
+          }
+        },
+        "North Wales & Merseyside": {
+          "dd": {
+            "elecSC": 63.39,
+            "elecUnit": 23.43,
+            "gasSC": 24.31,
+            "gasUnit": 5.36
+          }
+        },
+        "West Midlands": {
+          "dd": {
+            "elecSC": 46.46,
+            "elecUnit": 22.43,
+            "gasSC": 27.83,
+            "gasUnit": 5.14
+          }
+        },
+        "North East": {
+          "dd": {
+            "elecSC": 53.29,
+            "elecUnit": 22.23,
+            "gasSC": 24.31,
+            "gasUnit": 5.31
+          }
+        },
+        "North West": {
+          "dd": {
+            "elecSC": 44.59,
+            "elecUnit": 22.91,
+            "gasSC": 27.95,
+            "gasUnit": 5.08
+          }
+        },
+        "South East": {
+          "dd": {
+            "elecSC": 41.09,
+            "elecUnit": 23.34,
+            "gasSC": 27.4,
+            "gasUnit": 5.19
+          }
+        },
+        "Southern": {
+          "dd": {
+            "elecSC": 38.08,
+            "elecUnit": 22.98,
+            "gasSC": 27.28,
+            "gasUnit": 5.32
+          }
+        },
+        "South Wales": {
+          "dd": {
+            "elecSC": 45.21,
+            "elecUnit": 23.14,
+            "gasSC": 27.5,
+            "gasUnit": 5.33
+          }
+        },
+        "South West": {
+          "dd": {
+            "elecSC": 47.54,
+            "elecUnit": 23.44,
+            "gasSC": 27.4,
+            "gasUnit": 5.31
+          }
+        },
+        "Yorkshire": {
+          "dd": {
+            "elecSC": 53.29,
+            "elecUnit": 22.23,
+            "gasSC": 24.31,
+            "gasUnit": 5.31
+          }
+        },
+        "North Scotland": {
+          "dd": {
+            "elecSC": 54.48,
+            "elecUnit": 23.14,
+            "gasSC": 27.99,
+            "gasUnit": 5.12
+          }
+        },
+        "South Scotland": {
+          "dd": {
+            "elecSC": 50.04,
+            "elecUnit": 22.43,
+            "gasSC": 28.01,
+            "gasUnit": 5.16
           }
         }
       },
