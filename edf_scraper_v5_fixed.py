@@ -702,7 +702,7 @@ def main():
     print(f"Regions: {len(postcodes)}")
     
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=args.headless, slow_mo=50)
+        browser = p.firefox.launch(headless=args.headless, slow_mo=50)
         results = run_all_regions(browser, postcodes, args.wait)
         browser.close()
     
