@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-E.ON Next Tariff Scraper v5.2 - UNDETECTED CHROME
+E.ON Next Tariff Scraper v5.3 - UNDETECTED CHROME
 - Only picks residential addresses (starting with number)
 - Handles "already supply" popup
 - Handles "business meter" popup
 - Handles prepayment meter - goes back
 - Handles Chrome "open app" popup - refreshes
 - Handles page refresh on invalid address
+- Handles "what you'll be missing" popup
 """
 
 import json
@@ -224,6 +225,63 @@ def check_chrome_app_popup(driver):
     except:
         pass
     return False
+
+
+def check_missing_out_popup(driver):
+    """Check if 'here's what you'll be missing' popup appeared."""
+    try:
+        page_text = driver.page_source.lower()
+        if "what you'll be missing" in page_text or "what you will be missing" in page_text or "here's what you" in page_text:
+            return True
+    except:
+        pass
+    return False
+
+
+def handle_missing_out_popup(driver, postcode):
+    """Handle the 'what you'll be missing' popup - close it or refresh."""
+    try:
+        print(f"    ⚠ 'What you'll be missing' popup detected")
+        
+        # Try to close it first
+        if close_popup(driver):
+            time.sleep(1)
+            return True
+        
+        # Try clicking "No thanks" or similar buttons
+        dismiss_texts = ["No thanks", "No, thanks", "Continue", "Skip", "Close", "Not now"]
+        for text in dismiss_texts:
+            try:
+                btn = driver.find_element(By.XPATH, f"//*[contains(text(), '{text}')]")
+                if btn.is_displayed():
+                    btn.click()
+                    print(f"    ✓ Clicked '{text}'")
+                    time.sleep(1)
+                    return True
+            except:
+                continue
+        
+        # If can't close, refresh and re-enter postcode
+        print(f"    → Refreshing page...")
+        driver.refresh()
+        time.sleep(3)
+        
+        # Re-enter postcode
+        try:
+            pc_input = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'input[name*="postcode" i], input[placeholder*="postcode" i]'))
+            )
+            pc_input.clear()
+            human_type(pc_input, postcode)
+            print(f"    ✓ Re-entered postcode")
+            time.sleep(2)
+        except:
+            pass
+        
+        return True
+    except Exception as e:
+        print(f"    ✗ Failed to handle popup: {e}")
+        return False
 
 
 def check_postcode_empty(driver, expected_postcode):
@@ -530,6 +588,25 @@ def scrape_eon(driver, postcode: str, region: str, attempt: int = 1,
                     select = Select(address_dropdown)
                 continue
             
+            # Check for "what you'll be missing" popup
+            if check_missing_out_popup(driver):
+                handle_missing_out_popup(driver, postcode)
+                human_delay(1, 2)
+                
+                # Re-get dropdown or re-enter postcode
+                try:
+                    address_dropdown = driver.find_element(By.TAG_NAME, "select")
+                    select = Select(address_dropdown)
+                except:
+                    print(f"    Re-entering postcode...")
+                    enter_postcode(driver, postcode)
+                    human_delay(2, 3)
+                    address_dropdown = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.TAG_NAME, "select"))
+                    )
+                    select = Select(address_dropdown)
+                continue
+            
             # Check for prepayment meter
             try:
                 page_text = driver.page_source.lower()
@@ -613,9 +690,19 @@ def scrape_eon(driver, postcode: str, region: str, attempt: int = 1,
         if not success:
             raise Exception("No valid address found after multiple tries")
         
+        # Check for "what you'll be missing" popup before continuing
+        if check_missing_out_popup(driver):
+            handle_missing_out_popup(driver, postcode)
+            human_delay(2, 3)
+        
         # STEP 8: Expand details
         print(f"\n  [STEP 8] Expanding details...")
         human_delay(1, 2)
+        
+        # Check again for popup
+        if check_missing_out_popup(driver):
+            handle_missing_out_popup(driver, postcode)
+            human_delay(2, 3)
         
         for text in ["More info", "View details", "See details"]:
             try:
@@ -632,6 +719,14 @@ def scrape_eon(driver, postcode: str, region: str, attempt: int = 1,
         
         # STEP 9: Extract rates
         print(f"\n  [STEP 9] Extracting rates...")
+        
+        # Final check for popup blocking rates
+        if check_missing_out_popup(driver):
+            print(f"    ⚠ Popup blocking rates page!")
+            handle_missing_out_popup(driver, postcode)
+            human_delay(2, 3)
+            # Take another screenshot
+            driver.save_screenshot(f"screenshots/eon_{region.replace(' ', '_')}_after_popup.png")
         
         rates = extract_rates(driver)
         
@@ -774,7 +869,7 @@ def save_results(results):
 def main():
     import argparse
     
-    parser = argparse.ArgumentParser(description="E.ON Next Scraper v5.1")
+    parser = argparse.ArgumentParser(description="E.ON Next Scraper v5.3")
     parser.add_argument("--headless", action="store_true")
     parser.add_argument("--test", type=str, help="Test single postcode")
     parser.add_argument("--wait", type=int, default=30)
@@ -784,7 +879,7 @@ def main():
     os.makedirs("screenshots", exist_ok=True)
     
     print("="*60)
-    print("E.ON NEXT SCRAPER v5.2 - UNDETECTED CHROME")
+    print("E.ON NEXT SCRAPER v5.3 - UNDETECTED CHROME")
     print("="*60)
     print("✓ Only picks residential addresses (starting with number)")
     print("✓ Handles 'already supply' popup")
@@ -792,6 +887,7 @@ def main():
     print("✓ Handles prepayment meter")
     print("✓ Handles Chrome 'open app' popup")
     print("✓ Handles page reset on invalid address")
+    print("✓ Handles 'what you'll be missing' popup")
     print()
     
     results = run_scraper(args.headless, args.test, args.wait, args.retries)
