@@ -543,9 +543,11 @@ def main():
                 
                 # Run single postcode test
                 try:
-                    print(f"    Running {script} --test \"{postcode}\"")
+                    # Build command with --headless for web scrapers
+                    cmd = [sys.executable, script, "--test", postcode, "--headless"]
+                    print(f"    Running {script} --test \"{postcode}\" --headless")
                     subprocess.run(
-                        [sys.executable, script, "--test", postcode],
+                        cmd,
                         capture_output=False,
                         text=True
                     )
