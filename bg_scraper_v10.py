@@ -748,6 +748,8 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
     """Main scraper with enhanced anti-detection."""
     
     results = []
+    consecutive_failures = 0  # Track consecutive failures for early abort
+    early_abort = False
     
     if test_postcode:
         postcodes = {k: v for k, v in DNO_POSTCODES_ALL.items() if v == test_postcode}
@@ -811,6 +813,9 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
         all_batches = [(name, b) for name, b in all_batches if b]
         
         for batch_idx, (batch_name, batch_postcodes) in enumerate(all_batches):
+            if early_abort:
+                break
+                
             print(f"\n{'#'*60}")
             print(f"  {batch_name} - {len(batch_postcodes)} regions")
             print('#'*60)
@@ -828,14 +833,27 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                     with open("bg_tariffs_partial.json", "w") as f:
                         json.dump(results, f, indent=2)
                     print(f"  ✓ Success! (Saved)")
+                    consecutive_failures = 0  # Reset on success
                 else:
                     print(f"  ✗ Failed after {max_retries} attempts")
+                    consecutive_failures += 1
+                
+                # EARLY ABORT: If first 3 regions all fail, scraper is broken
+                if consecutive_failures >= 3 and len(results) <= 4:
+                    print(f"\n  🛑 EARLY ABORT: First {consecutive_failures} regions failed consecutively")
+                    print(f"  → Scraper appears broken on this environment")
+                    print(f"  → Run manually on local machine")
+                    early_abort = True
+                    break
                 
                 # Wait between regions (randomized)
                 if i < len(batch_postcodes) - 1:
                     actual_wait = wait_secs + random.randint(-5, 10)
                     print(f"\n  ⏳ Waiting {actual_wait}s before next region...")
                     time.sleep(actual_wait)
+            
+            if early_abort:
+                break
             
             # Longer wait between batches
             if batch_idx < len(all_batches) - 1:
@@ -844,6 +862,9 @@ def run_scraper(headless: bool = False, test_postcode: str = None,
                 time.sleep(batch_wait)
         
         browser.close()
+    
+    if early_abort:
+        print(f"\n  ⚠️ Scraper aborted early with {len(results)} partial results")
     
     return results
 
