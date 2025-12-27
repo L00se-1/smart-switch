@@ -1,0 +1,39 @@
+name: Daily Tariff Scraper
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Runs at 2am UTC every day
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install playwright requests
+        playwright install chromium
+        playwright install-deps
+    
+    - name: Run daily scrapers
+      run: |
+        python run_all_scrapers.py --only octopus bg eon
+      continue-on-error: true
+    
+    - name: Commit and push results
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add all_tariffs.json tariff_data_latest.json all_tariffs_*.json all_tariffs_*.csv
+        git diff --staged --quiet || git commit -m "Auto update tariffs $(date +'%Y-%m-%d %H:%M')"
+        git push
