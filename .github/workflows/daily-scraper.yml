@@ -27,7 +27,7 @@ jobs:
     
     - name: Run ALL 7 scrapers
       run: |
-        python run_all_scrapers.py
+        python run_all_scrapers.py --only sp
       continue-on-error: true
     
     - name: Commit and push results
