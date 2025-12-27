@@ -431,46 +431,13 @@ def scrape_edf(browser, postcode: str, region: str) -> dict:
             
             # STEP 6: TRY TO SELECT ELECTRICITY AND GAS - IF NOT THERE, TRY NEXT ADDRESS
             print(f"\n  [STEP 6] Selecting Electricity and Gas...")
-            
-            # Debug screenshot to see what's on page
-            page.screenshot(path=f"screenshots/edf_{region.replace(' ', '_')}_before_fuel_select.png")
-            
             try:
                 remove_onetrust_overlay(page)  # Remove overlay
-                
-                # Wait for page to settle - GitHub runners are slower
-                time.sleep(3)
-                
-                # Try multiple selectors for the dual fuel option
-                dual_fuel_selectors = [
-                    'text="Electricity and Gas"',
-                    'text="Electricity and gas"',
-                    'label:has-text("Electricity and Gas")',
-                    'div:has-text("Electricity and Gas") >> visible=true',
-                ]
-                
-                clicked = False
-                for selector in dual_fuel_selectors:
-                    try:
-                        elem = page.locator(selector).first
-                        if elem.is_visible(timeout=3000):
-                            # Scroll into view first
-                            elem.scroll_into_view_if_needed()
-                            time.sleep(0.5)
-                            remove_onetrust_overlay(page)  # Remove overlay again
-                            elem.click(timeout=5000)
-                            clicked = True
-                            print(f"    ✓ Selected Electricity and Gas")
-                            break
-                    except:
-                        continue
-                
-                if not clicked:
-                    raise Exception("Could not find dual fuel option")
-                
+                page.click('text="Electricity and Gas"', timeout=5000)
+                print(f"    ✓ Selected Electricity and Gas")
                 time.sleep(1)
-            except Exception as e:
-                print(f"    ⚠ No 'Electricity and Gas' option - trying next address ({e})")
+            except:
+                print(f"    ⚠ No 'Electricity and Gas' option - trying next address")
                 current_idx += 1
                 reset_and_search(page, postcode)
                 continue
@@ -702,7 +669,7 @@ def main():
     print(f"Regions: {len(postcodes)}")
     
     with sync_playwright() as p:
-        browser = p.firefox.launch(headless=args.headless, slow_mo=50)
+        browser = p.chromium.launch(headless=args.headless, slow_mo=50)
         results = run_all_regions(browser, postcodes, args.wait)
         browser.close()
     
