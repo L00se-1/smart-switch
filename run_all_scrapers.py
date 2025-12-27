@@ -250,8 +250,8 @@ def save_combined_results(results):
     """Save combined results to JSON and CSV."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    # JSON for web use
-    json_file = f"all_tariffs_{timestamp}.json"
+    # JSON for web use - always overwrite all_tariffs.json
+    json_file = "all_tariffs.json"
     output_data = {
         "last_updated": datetime.now().isoformat(),
         "total_records": len(results),
@@ -262,12 +262,6 @@ def save_combined_results(results):
     with open(json_file, "w") as f:
         json.dump(output_data, f, indent=2)
     print(f"\n✓ Saved: {json_file}")
-    
-    # Also save a simple version for website
-    simple_file = "all_tariffs_latest.json"
-    with open(simple_file, "w") as f:
-        json.dump(output_data, f, indent=2)
-    print(f"✓ Saved: {simple_file} (for website)")
     
     # =====================================================
     # WEBSITE FORMAT - Transform to tariff-tracker format
